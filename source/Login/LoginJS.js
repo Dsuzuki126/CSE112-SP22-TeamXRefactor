@@ -7,8 +7,8 @@
  * survives between reloads
  * -new tabs or closing it will refresh the session
  */
-let storageSession = window.sessionStorage;
-
+// let storageSession = window.sessionStorage;
+// console.log(storageSession)
 //store current page state
 let loginState;
 
