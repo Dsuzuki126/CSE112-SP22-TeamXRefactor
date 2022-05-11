@@ -33,6 +33,9 @@ jobs:
       - name: Install Node.js dependencies
         run: npm ci
 
+      - name: Install http-server
+        run: npm install -g http-server
+        
       - name: Run Server
         run: http-server -p 8087
 
