@@ -34,8 +34,8 @@ jobs:
         run: npm ci
 
       - name: Run Server
-      - run: npx kill-port 8087
-      - run: http-server -p 8087
+        run: npx kill-port 8087
+        run: http-server -p 8087
 
 
       - name: Run Puppeteer tests
