@@ -127,4 +127,3 @@ function setReturningUser() {
     document.getElementById('title').innerText = 'Welcome back!';
     loginButton.innerText = 'Sign-In';
 }
-
