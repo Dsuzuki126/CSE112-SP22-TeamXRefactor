@@ -10,14 +10,12 @@ window.addEventListener('load', () => {
     // eslint-disable-next-line no-undef
     let dbPromise = initDB();
     dbPromise.onsuccess = function (e) {
-        console.log('database connected');
         // eslint-disable-next-line no-undef
         setDB(e.target.result);
         // eslint-disable-next-line no-undef
         let req = getSettings();
         req.onsuccess = function (e) {
             let settingObj = e.target.result;
-            console.log('setting initial theme');
             document.documentElement.style.setProperty(
                 '--bg-color',
                 settingObj.theme
@@ -74,7 +72,6 @@ document.querySelector('#themes').addEventListener('change', () => {
     // eslint-disable-next-line no-undef
     let req = getSettings();
     req.onsuccess = function (e) {
-        console.log('got settings');
         let settingObj = e.target.result;
         settingObj.theme = document.querySelector('#themes').value;
         document.documentElement.style.setProperty(

@@ -126,8 +126,6 @@ function setUpMockData() {
         })
         .then((data) => {
             mockData = data;
-            console.log('here is the mock Data', mockData);
-            console.log('setting up mock data');
             createDay(mockData.sampleDay1);
             createDay(mockData.sampleDay2);
             createMonthlyGoals(mockData.sampleMonthlyGoals);
@@ -159,39 +157,7 @@ function setUpMockData() {
  * sample function to get the mock data from the database
  * IS NOW DEPRECATED
  */
-function getMockData() {
-    let reqD1 = getDay('05/20/2021');
-    reqD1.onsuccess = function (e) {
-        console.log('got daily goals 05/20/2021');
-        console.log(e.target.result);
-    };
 
-    let reqMG = getMonthlyGoals('12/2021');
-    reqMG.onsuccess = function (e) {
-        console.log('got monthly goals');
-        console.log('Testing Build Process');
-        console.log(e.target.result);
-    };
-
-    let reqYG = getYearlyGoals('2020');
-    reqYG.onsuccess = function (e) {
-        console.log('got yearly goals 2020');
-        console.log(e.target.result);
-    };
-
-    let reqSE = getSettings();
-    reqSE.onsuccess = function (e) {
-        console.log('got settings');
-        console.log(e.target.result);
-    };
-
-    //This one is getting an entry that doesn't exist
-    let reqYGE = getYearlyGoals('2021');
-    reqYGE.onsuccess = function (e) {
-        console.log('didnt yearly goals 2021, should be undefined');
-        console.log(e.target.result);
-    };
-}
 
 /**
  * sample function to delete the mock data from database
@@ -242,7 +208,6 @@ function createDay(dayObj) {
     let store = tx.objectStore('days');
     let request = store.add(dayObj);
     request.onerror = function (e) {
-        console.log('Error', e.target.error.name);
         throw 'Error' + e.target.error.name;
     };
     request.onsuccess = function () {
@@ -265,7 +230,6 @@ function updateDay(dayObj) {
     let store = tx.objectStore('days');
     let request = store.put(dayObj);
     request.onerror = function (e) {
-        console.log('Error', e.target.error.name);
         throw 'Error' + e.target.error.name;
     };
     request.onsuccess = function () {
@@ -283,7 +247,6 @@ function deleteDay(dayStr) {
     let store = tx.objectStore('days');
     let request = store.delete(dayStr);
     request.onerror = function (e) {
-        console.log('Error', e.target.error.name);
         throw 'Error' + e.target.error.name;
     };
     request.onsuccess = function () {
@@ -315,7 +278,6 @@ function createYearlyGoals(yearObj) {
     let store = tx.objectStore('yearlyGoals');
     let request = store.add(yearObj);
     request.onerror = function (e) {
-        console.log('Error', e.target.error.name);
         throw 'Error' + e.target.error.name;
     };
     request.onsuccess = function () {
@@ -336,7 +298,6 @@ function updateYearsGoals(yearObj) {
     let store = tx.objectStore('yearlyGoals');
     let request = store.put(yearObj);
     request.onerror = function (e) {
-        console.log('Error', e.target.error.name);
         throw 'Error' + e.target.error.name;
     };
     request.onsuccess = function () {
@@ -354,7 +315,6 @@ function deleteYearlyGoals(yearStr) {
     let store = tx.objectStore('yearlyGoals');
     let request = store.delete(yearStr);
     request.onerror = function (e) {
-        console.log('Error', e.target.error.name);
         throw 'Error' + e.target.error.name;
     };
     request.onsuccess = function () {
@@ -386,7 +346,6 @@ function createMonthlyGoals(monthObj) {
     let store = tx.objectStore('monthlyGoals');
     let request = store.add(monthObj);
     request.onerror = function (e) {
-        console.log('Error', e.target.error.name);
         throw 'Error' + e.target.error.name;
     };
     request.onsuccess = function () {
@@ -407,7 +366,6 @@ function updateMonthlyGoals(monthObj) {
     let store = tx.objectStore('monthlyGoals');
     let request = store.put(monthObj);
     request.onerror = function (e) {
-        console.log('Error', e.target.error.name);
         throw 'Error' + e.target.error.name;
     };
     request.onsuccess = function () {
@@ -425,7 +383,6 @@ function deleteMonthlyGoals(monthStr) {
     let store = tx.objectStore('monthlyGoals');
     let request = store.delete(monthStr);
     request.onerror = function (e) {
-        console.log('Error', e.target.error.name);
         throw 'Error' + e.target.error.name;
     };
     request.onsuccess = function () {
@@ -459,7 +416,6 @@ function createSettings(setting) {
     var store = tx.objectStore('setting');
     let request = store.add(setting);
     request.onerror = function (e) {
-        console.log('Error', e.target.error.name);
         throw 'Error' + e.target.error.name;
     };
     request.onsuccess = function () {
@@ -480,7 +436,6 @@ function updateSettings(setting) {
     var store = tx.objectStore('setting');
     let request = store.put(setting, 1);
     request.onerror = function (e) {
-        console.log('Error', e.target.error.name);
         throw 'Error' + e.target.error.name;
     };
     request.onsuccess = function () {
@@ -497,7 +452,6 @@ function deleteSettings() {
     var store = tx.objectStore('setting');
     let request = store.delete(1);
     request.onerror = function (e) {
-        console.log('Error', e.target.error.name);
         throw 'Error' + e.target.error.name;
     };
     request.onsuccess = function () {

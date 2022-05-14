@@ -7,8 +7,6 @@
  * survives between reloads
  * -new tabs or closing it will refresh the session
  */
-// let storageSession = window.sessionStorage;
-// console.log(storageSession)
 //store current page state
 let loginState;
 
@@ -45,7 +43,6 @@ function getLoginState() {
     // eslint-disable-next-line no-undef
     let dbPromise = initDB();
     dbPromise.onsuccess = function (e) {
-        console.log('database connected');
         // eslint-disable-next-line no-undef
         setDB(e.target.result);
         // eslint-disable-next-line no-undef
@@ -78,7 +75,6 @@ function handleSignup(newUsername, newPassword) {
     //update settings
     // eslint-disable-next-line no-undef
     updateSettings(userObject);
-    console.log('frontend: updating settings...');
     //make them log in
     //toggleView();
     alert('Account created! Please log in');
@@ -132,21 +128,3 @@ function setReturningUser() {
     loginButton.innerText = 'Sign-In';
 }
 
-/*
-
-/**
- * Mock function for pretending to hash things
- *
- * @param {*} input Plaintext password to be hashed
- * @returns an encrypted hash representation of the password
-function mockHash(input) {
-    //console.log(input);
-    let retval = 0;
-    for (let i = 0; i < input.length; i++) {
-        retval += input.charCodeAt(i);
-    }
-    //console.log(retval);
-    return retval;
-}
-
-*/

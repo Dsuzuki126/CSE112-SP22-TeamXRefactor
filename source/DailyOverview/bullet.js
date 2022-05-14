@@ -211,8 +211,6 @@ class BulletEntry extends HTMLElement {
                 let newJson = JSON.parse(this.getAttribute('bulletJson'));
                 let selectElement = this.shadowRoot.querySelector('#features');
                 let output = selectElement.value;
-                console.log('debug shit');
-                console.log(newJson);
                 newJson.features = output;
                 this.setAttribute('bulletJson', JSON.stringify(newJson));
                 this.dispatchEvent(this.features);
@@ -268,12 +266,7 @@ class BulletEntry extends HTMLElement {
             this.shadowRoot.querySelector(
                 '.bullet-content'
             ).style.textDecoration = 'line-through';
-            console.log('testing');
         }
-
-        console.log('features');
-        console.log(entry.features);
-        console.log(this.shadowRoot.getElementById(entry.features));
         this.shadowRoot
             .getElementById(entry.features)
             .setAttribute('selected', 'true');
@@ -321,8 +314,6 @@ class BulletEntry extends HTMLElement {
     }
 
     set index(index) {
-        console.log('entry index: ' + index);
-        console.log('entry index length: ' + index.length);
         if (index.length > 2) {
             this.shadowRoot.querySelector('#add').remove();
         }

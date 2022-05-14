@@ -26,7 +26,6 @@ const year_OV_link = '../YearlyOverview/YearlyOverview.html';
 window.addEventListener('load', () => {
     //gets the session, if the user isn't logged in, sends them to login page
     let session = window.sessionStorage;
-    console.log('here is storage session', session);
     if (session.getItem('loggedIn') !== 'true') {
         window.location.href = '../Login/Login.html';
     }
@@ -113,7 +112,6 @@ function setupCalendar() {
 
     //get today code stolen from stackoverflow
     var today = new Date();
-    console.log(today);
     var curr_day_number = today.getDate();
     var currMonthNumber = today.getMonth();
     var currYearNumber = today.getFullYear();
@@ -146,7 +144,6 @@ function setupCalendar() {
     let days_field = document.createElement('ul');
     days_field.classList.add('days_field');
     let endDay = daysInMonth(currMonthNumber, currYearNumber);
-    console.log('Current month has ' + endDay + ' days');
     //fake days for padding
     //empty tiles for paddding
     for (let i = 0; i < monthFirstDow; i++) {

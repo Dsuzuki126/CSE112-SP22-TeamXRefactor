@@ -11,8 +11,7 @@ let currentYear = myLocation.substring(
 if (currentYear == 'html') {
     currentYear = 2021;
 }
-console.log(currentYear);
-// currentYear = '2020';
+
 // contains the current year's yearlyGoal object from the database
 let currentYearRes;
 
@@ -24,11 +23,9 @@ window.addEventListener('load', () => {
     }
     let dbPromise = initDB();
     dbPromise.onsuccess = function (e) {
-        console.log('database connected');
         setDB(e.target.result);
         let req = getYearlyGoals(currentYear);
         req.onsuccess = function (e) {
-            console.log('got year');
             currentYearRes = e.target.result;
             if (currentYearRes === undefined) {
                 currentYearRes = initYear(currentYear);
@@ -42,7 +39,6 @@ window.addEventListener('load', () => {
         let settingsReq = getSettings();
         settingsReq.onsuccess = function (e) {
             let settingObj = e.target.result;
-            console.log('setting initial theme');
             document.documentElement.style.setProperty(
                 '--bg-color',
                 settingObj.theme
@@ -60,7 +56,6 @@ document.querySelector('.entry-form').addEventListener('submit', (submit) => {
         text: gText,
         done: false,
     });
-    console.log(currentYearRes);
     document.querySelector('#bullets').innerHTML = '';
     renderGoals(currentYearRes.goals);
     updateYearsGoals(currentYearRes);
@@ -68,7 +63,6 @@ document.querySelector('.entry-form').addEventListener('submit', (submit) => {
 
 // lets bullet component listen to when a bullet is deleted
 document.querySelector('#bullets').addEventListener('deleted', function (e) {
-    console.log('got event');
     let index = e.composedPath()[0].getAttribute('index');
     currentYearRes.goals.splice(index, 1);
     updateYearsGoals(currentYearRes);
@@ -78,7 +72,6 @@ document.querySelector('#bullets').addEventListener('deleted', function (e) {
 
 // lets bullet component listen to when a bullet is edited
 document.querySelector('#bullets').addEventListener('edited', function (e) {
-    console.log('got event');
     let newText = JSON.parse(e.composedPath()[0].getAttribute('goalJson')).text;
     let index = e.composedPath()[0].getAttribute('index');
     currentYearRes.goals[index].text = newText;
@@ -89,7 +82,6 @@ document.querySelector('#bullets').addEventListener('edited', function (e) {
 
 // lets bullet component listen to when a bullet is marked done
 document.querySelector('#bullets').addEventListener('done', function (e) {
-    console.log('got done event');
     let index = e.composedPath()[0].getAttribute('index');
     currentYearRes.goals[index].done ^= true;
     updateYearsGoals(currentYearRes);
@@ -107,7 +99,6 @@ function renderGoals(goals) {
         newPost.setAttribute('goalJson', JSON.stringify(goal));
         newPost.setAttribute('index', i);
         newPost.entry = goal;
-        console.log(newPost);
         document.querySelector('#bullets').appendChild(newPost);
         i++;
     });
