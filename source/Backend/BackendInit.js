@@ -158,7 +158,6 @@ function setUpMockData() {
  * IS NOW DEPRECATED
  */
 
-
 /**
  * sample function to delete the mock data from database
  * IS NOW DEPRECATED
