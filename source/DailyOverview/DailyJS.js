@@ -1,5 +1,3 @@
-/* eslint-disable no-undef */
-//since all backend API calls are unknown to eslint, just disabeling no-undef
 window.img = new Array(); // used to load image from <input> and draw to canvas
 var input = document.getElementById('image-input');
 let canvas = document.getElementById('myCanvas');
@@ -15,10 +13,7 @@ let currentDateStr = myLocation.substring(
 if (currentDateStr == 'html') {
     currentDateStr = '05/25/2020';
 }
-
-//set back button
-document.getElementById('monthView').children[0].href +=
-    '#' + currentDateStr.substring(0, 2) + '/' + currentDateStr.substring(6);
+console.log(currentDateStr);
 
 let relative = 0;
 // Buttons
@@ -26,6 +21,21 @@ const add = document.getElementById('addPhoto');
 const save = document.getElementById('save');
 const right = document.getElementById('right');
 const left = document.getElementById('left');
+const LENGTH_OF_YEAR_NUMBER = -4;
+const monthNames = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
+];
 
 // store current day data to update when user leaves page
 let currentDay;
@@ -33,6 +43,7 @@ let currentDay;
 window.addEventListener('load', () => {
     //gets the session, if the user isn't logged in, sends them to login page
     let session = window.sessionStorage;
+    console.log('here is storage session', session);
     if (session.getItem('loggedIn') !== 'true') {
         window.location.href = '../Login/Login.html';
         //might need this to create uness entires?
@@ -40,6 +51,7 @@ window.addEventListener('load', () => {
     } else {
         let dbPromise = initDB();
         dbPromise.onsuccess = function (e) {
+            console.log('database connected');
             setDB(e.target.result);
             requestDay();
             fetchMonthGoals();
@@ -47,6 +59,7 @@ window.addEventListener('load', () => {
             let req = getSettings();
             req.onsuccess = function (e) {
                 let settingObj = e.target.result;
+                console.log('setting theme');
                 document.documentElement.style.setProperty(
                     '--bg-color',
                     settingObj.theme
@@ -55,7 +68,35 @@ window.addEventListener('load', () => {
         };
         document.getElementById('date').innerHTML = 'Today: ' + currentDateStr;
     }
+
+    setMonthlyOverviewLink();
 });
+
+/**
+ * Sets the MonthlyOverview link to say '<month> <year> Overview' so that users
+ * clearly know what MonthOverview they are going to from DailyOverview page
+ * @returns void
+ */
+function setMonthlyOverviewLink() {
+    // get MonthlyOverview link in top left corner of DailyOverview screen
+    let monthlyOverviewLink = document.querySelector(
+        '#monthView > a:first-child'
+    );
+    // set the link to be to the month of the current DailyOverview
+    monthlyOverviewLink.href +=
+        '#' +
+        currentDateStr.substring(0, 2) +
+        '/' +
+        currentDateStr.substring(6);
+    /* set link text */
+    const monthString = currentDateStr.substring(
+        0,
+        currentDateStr.indexOf('/')
+    );
+    const month = monthNames[parseInt(monthString) - 1];
+    const year = currentDateStr.slice(LENGTH_OF_YEAR_NUMBER);
+    monthlyOverviewLink.textContent = `${month} ${year} Overview`;
+}
 
 /**
  * Gets the current day object (and creates one if one doesn't exist)
@@ -66,6 +107,8 @@ window.addEventListener('load', () => {
 function requestDay() {
     let req = getDay(currentDateStr);
     req.onsuccess = function (e) {
+        console.log('got day');
+        console.log(e.target.result);
         currentDay = e.target.result;
         if (currentDay === undefined) {
             currentDay = initDay(currentDateStr);
@@ -94,15 +137,20 @@ function requestDay() {
  * @returns void
  */
 function fetchMonthGoals() {
+    console.log('fetching month');
+    console.log(currentDateStr.substring(6));
     let monthStr = currentDateStr.substring(0, 3) + currentDateStr.substring(6);
     let req = getMonthlyGoals(monthStr);
     req.onsuccess = function (e) {
+        console.log('got month');
         let monthObj = e.target.result;
+        console.log(monthObj);
         if (monthObj === undefined) {
             createMonthlyGoals(initMonth(monthStr));
         } else {
             //load in bullets
             monthObj.goals.forEach((goal) => {
+                console.log('here is a goal', goal);
                 let goalElem = document.createElement('p');
                 goalElem.innerHTML = goal.text;
                 goalElem.style.wordBreak = 'break-all';
@@ -114,6 +162,7 @@ function fetchMonthGoals() {
                     goalElem.style.textDecoration = 'line-through';
                 }
                 goalElem.classList.add('month-goal');
+                console.log(goalElem);
                 document.querySelector('#monthGoal').appendChild(goalElem);
             });
         }
@@ -126,15 +175,19 @@ function fetchMonthGoals() {
  * @returns void
  */
 function fetchYearGoals() {
+    console.log('fetching year');
     let yearStr = currentDateStr.substring(6);
     let req = getYearlyGoals(yearStr);
     req.onsuccess = function (e) {
+        console.log('got year');
         let yearObj = e.target.result;
+        console.log(yearObj);
         if (yearObj === undefined) {
             createYearlyGoals(initYear(yearStr));
         } else {
             //load in bullets
             yearObj.goals.forEach((goal) => {
+                console.log('here is a goal', goal);
                 let goalElem = document.createElement('p');
                 goalElem.innerHTML = goal.text;
                 goalElem.style.wordBreak = 'break-all';
@@ -146,6 +199,7 @@ function fetchYearGoals() {
                     goalElem.style.textDecoration = 'line-through';
                 }
                 goalElem.classList.add('year-goal');
+                console.log(goalElem);
                 document.querySelector('#yearGoal').appendChild(goalElem);
             });
         }
@@ -167,6 +221,7 @@ document.querySelector('.entry-form').addEventListener('submit', (submit) => {
         childList: [],
         features: 'normal',
     });
+    console.log(currentDay);
     document.querySelector('#bullets').innerHTML = '';
     renderBullets(currentDay.bullets);
     updateDay(currentDay);
@@ -174,8 +229,12 @@ document.querySelector('.entry-form').addEventListener('submit', (submit) => {
 
 // lets bullet component listen to when a bullet child is added
 document.querySelector('#bullets').addEventListener('added', function (e) {
+    console.log('got add event');
+    console.log(e.composedPath());
     let newJson = JSON.parse(e.composedPath()[0].getAttribute('bulletJson'));
     let index = JSON.parse(e.composedPath()[0].getAttribute('index'));
+    // console.log('newJson ' + JSON.stringify(newJson));
+    // console.log('index ' + JSON.stringify(index));
     // if 3rd layer of nesting
     if (e.composedPath().length > 7) {
         currentDay.bullets[index[0]].childList[index[1]] = newJson;
@@ -189,6 +248,8 @@ document.querySelector('#bullets').addEventListener('added', function (e) {
 
 // lets bullet component listen to when a bullet is deleted
 document.querySelector('#bullets').addEventListener('deleted', function (e) {
+    console.log('got deleted event');
+    console.log(e.composedPath());
     let index = JSON.parse(e.composedPath()[0].getAttribute('index'));
     let firstIndex = index[0];
     if (index.length > 1) {
@@ -211,6 +272,8 @@ document.querySelector('#bullets').addEventListener('deleted', function (e) {
 
 // lets bullet component listen to when a bullet is edited
 document.querySelector('#bullets').addEventListener('edited', function (e) {
+    console.log('got edited event');
+    console.log(e.composedPath()[0]);
     let newText = JSON.parse(e.composedPath()[0].getAttribute('bulletJson'))
         .text;
     let index = JSON.parse(e.composedPath()[0].getAttribute('index'));
@@ -237,6 +300,8 @@ document.querySelector('#bullets').addEventListener('edited', function (e) {
 
 // lets bullet component listen to when a bullet is marked done
 document.querySelector('#bullets').addEventListener('done', function (e) {
+    console.log('got done event');
+    console.log(e.composedPath()[0]);
     let index = JSON.parse(e.composedPath()[0].getAttribute('index'));
     let firstIndex = index[0];
     if (index.length > 1) {
@@ -259,6 +324,8 @@ document.querySelector('#bullets').addEventListener('done', function (e) {
 
 // lets bullet component listen to when a bullet is clicked category
 document.querySelector('#bullets').addEventListener('features', function (e) {
+    console.log('CHANGED CATEGORY');
+    console.log(e.composedPath()[0]);
     let newFeature = JSON.parse(e.composedPath()[0].getAttribute('bulletJson'))
         .features;
     let index = JSON.parse(e.composedPath()[0].getAttribute('index'));
