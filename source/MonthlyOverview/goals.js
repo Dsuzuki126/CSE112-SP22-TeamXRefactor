@@ -86,8 +86,6 @@ class GoalsEntry extends HTMLElement {
             </article>
             `;
 
-            
-
         this.attachShadow({ mode: 'open' });
         this.shadowRoot.appendChild(template.content.cloneNode(true));
 
@@ -107,16 +105,17 @@ class GoalsEntry extends HTMLElement {
             }
             this.dispatchEvent(this.edited);
         });
-  
+
         // mark bullet as done
         this.shadowRoot.querySelector('#done').addEventListener('click', () => {
             this.dispatchEvent(this.done);
         });
 
-        this.shadowRoot.querySelector('#daily').addEventListener('click', () => {
-            this.dispatchEvent(this.daily);
-        });
-
+        this.shadowRoot
+            .querySelector('#daily')
+            .addEventListener('click', () => {
+                this.dispatchEvent(this.daily);
+            });
 
         /*
         On the monthly overview page, I will have a button that sets whether or not this goal is a goal

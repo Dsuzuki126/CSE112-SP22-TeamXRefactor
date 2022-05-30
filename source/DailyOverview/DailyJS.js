@@ -4,7 +4,7 @@ window.img = new Array(); // used to load image from <input> and draw to canvas
 var input = document.getElementById('image-input');
 let canvas = document.getElementById('myCanvas');
 let canv = canvas.getContext('2d');
-let goalCounts = new Array(); 
+let goalCounts = new Array();
 //get the desired mm/dd/yyyy string
 let myLocation = window.location.href;
 let currentDateStr = myLocation.substring(
@@ -56,8 +56,6 @@ window.addEventListener('load', () => {
         document.getElementById('date').innerHTML = 'Today: ' + currentDateStr;
     }
 });
-
-
 
 /**
  * Gets the current day object (and creates one if one doesn't exist)
@@ -115,11 +113,11 @@ function fetchMonthGoals() {
                     goalElem.style.textDecoration = 'line-through';
                 }
                 let exists;
-                for(let i = 0; i < currentDay.bullets.length; i++){
+                for (let i = 0; i < currentDay.bullets.length; i++) {
                     let currGoal = currentDay.bullets[i];
-                    if(currGoal.text === goal.text) exists = true;
+                    if (currGoal.text === goal.text) exists = true;
                 }
-                if(goal.daily == true && !exists){
+                if (goal.daily == true && !exists) {
                     currentDay.bullets.push({
                         text: goal.text,
                         done: false,
@@ -131,7 +129,6 @@ function fetchMonthGoals() {
                 goalElem.classList.add('month-goal');
                 document.querySelector('#monthGoal').appendChild(goalElem);
             });
-            
         }
     };
 }
@@ -162,11 +159,11 @@ function fetchYearGoals() {
                     goalElem.style.textDecoration = 'line-through';
                 }
                 let exists;
-                for(let i = 0; i < currentDay.bullets.length; i++){
+                for (let i = 0; i < currentDay.bullets.length; i++) {
                     let currGoal = currentDay.bullets[i];
-                    if(currGoal.text === goal.text) exists = true;
+                    if (currGoal.text === goal.text) exists = true;
                 }
-                if(goal.daily == true && !exists){
+                if (goal.daily == true && !exists) {
                     currentDay.bullets.push({
                         text: goal.text,
                         done: false,
