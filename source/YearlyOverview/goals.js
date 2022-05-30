@@ -77,6 +77,7 @@ class GoalsEntry extends HTMLElement {
                             <p id="edit">Edit</p>
                             <p id="delete">Delete</p>
                             <p id="done">Mark Done</p>
+                            <p id="daily">Daily</p>
                         </div>
                     </div>
                     </li>
@@ -110,6 +111,10 @@ class GoalsEntry extends HTMLElement {
             this.dispatchEvent(this.done);
         });
 
+        this.shadowRoot.querySelector('#daily').addEventListener('click', () => {
+            this.dispatchEvent(this.daily);
+        });
+
         // delete goal
         this.shadowRoot
             .querySelector('#delete')
@@ -134,6 +139,13 @@ class GoalsEntry extends HTMLElement {
             bubbles: true,
             composed: true,
         });
+
+        this.daily = new CustomEvent('daily', {
+            bubbles: true,
+            composed: true,
+        });
+
+
     }
 
     /**

@@ -4,7 +4,6 @@ class BulletEntry extends HTMLElement {
         super();
 
         const template = document.createElement('template');
-
         template.innerHTML = `
             <style>
                 .bullet{

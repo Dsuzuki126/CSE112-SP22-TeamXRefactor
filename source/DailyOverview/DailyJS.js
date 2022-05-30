@@ -4,7 +4,7 @@ window.img = new Array(); // used to load image from <input> and draw to canvas
 var input = document.getElementById('image-input');
 let canvas = document.getElementById('myCanvas');
 let canv = canvas.getContext('2d');
-
+let goalCounts = new Array(); 
 //get the desired mm/dd/yyyy string
 let myLocation = window.location.href;
 let currentDateStr = myLocation.substring(
@@ -15,7 +15,6 @@ let currentDateStr = myLocation.substring(
 if (currentDateStr == 'html') {
     currentDateStr = '05/25/2020';
 }
-console.log(currentDateStr);
 
 //set back button
 document.getElementById('monthView').children[0].href +=
@@ -34,7 +33,6 @@ let currentDay;
 window.addEventListener('load', () => {
     //gets the session, if the user isn't logged in, sends them to login page
     let session = window.sessionStorage;
-    console.log('here is storage session', session);
     if (session.getItem('loggedIn') !== 'true') {
         window.location.href = '../Login/Login.html';
         //might need this to create uness entires?
@@ -42,7 +40,6 @@ window.addEventListener('load', () => {
     } else {
         let dbPromise = initDB();
         dbPromise.onsuccess = function (e) {
-            console.log('database connected');
             setDB(e.target.result);
             requestDay();
             fetchMonthGoals();
@@ -50,7 +47,6 @@ window.addEventListener('load', () => {
             let req = getSettings();
             req.onsuccess = function (e) {
                 let settingObj = e.target.result;
-                console.log('setting theme');
                 document.documentElement.style.setProperty(
                     '--bg-color',
                     settingObj.theme
@@ -61,6 +57,8 @@ window.addEventListener('load', () => {
     }
 });
 
+
+
 /**
  * Gets the current day object (and creates one if one doesn't exist)
  * and sets the "currentDay" variable
@@ -70,8 +68,6 @@ window.addEventListener('load', () => {
 function requestDay() {
     let req = getDay(currentDateStr);
     req.onsuccess = function (e) {
-        console.log('got day');
-        console.log(e.target.result);
         currentDay = e.target.result;
         if (currentDay === undefined) {
             currentDay = initDay(currentDateStr);
@@ -86,7 +82,6 @@ function requestDay() {
             let newNote = document.createElement('note-box');
             newNote.entry = currentDay.notes;
             document.querySelector('#notes').appendChild(newNote);
-
             // Load photos
             let photos = currentDay.photos;
             renderPhotos(photos);
@@ -100,20 +95,15 @@ function requestDay() {
  * @returns void
  */
 function fetchMonthGoals() {
-    console.log('fetching month');
-    console.log(currentDateStr.substring(6));
     let monthStr = currentDateStr.substring(0, 3) + currentDateStr.substring(6);
     let req = getMonthlyGoals(monthStr);
     req.onsuccess = function (e) {
-        console.log('got month');
         let monthObj = e.target.result;
-        console.log(monthObj);
         if (monthObj === undefined) {
             createMonthlyGoals(initMonth(monthStr));
         } else {
             //load in bullets
             monthObj.goals.forEach((goal) => {
-                console.log('here is a goal', goal);
                 let goalElem = document.createElement('p');
                 goalElem.innerHTML = goal.text;
                 goalElem.style.wordBreak = 'break-all';
@@ -124,10 +114,24 @@ function fetchMonthGoals() {
                 if (goal.done == true) {
                     goalElem.style.textDecoration = 'line-through';
                 }
+                let exists;
+                for(let i = 0; i < currentDay.bullets.length; i++){
+                    let currGoal = currentDay.bullets[i];
+                    if(currGoal.text === goal.text) exists = true;
+                }
+                if(goal.daily == true && !exists){
+                    currentDay.bullets.push({
+                        text: goal.text,
+                        done: false,
+                        childList: [],
+                        features: 'normal',
+                    });
+                    renderBullets(currentDay.bullets);
+                }
                 goalElem.classList.add('month-goal');
-                console.log(goalElem);
                 document.querySelector('#monthGoal').appendChild(goalElem);
             });
+            
         }
     };
 }
@@ -138,19 +142,15 @@ function fetchMonthGoals() {
  * @returns void
  */
 function fetchYearGoals() {
-    console.log('fetching year');
     let yearStr = currentDateStr.substring(6);
     let req = getYearlyGoals(yearStr);
     req.onsuccess = function (e) {
-        console.log('got year');
         let yearObj = e.target.result;
-        console.log(yearObj);
         if (yearObj === undefined) {
             createYearlyGoals(initYear(yearStr));
         } else {
             //load in bullets
             yearObj.goals.forEach((goal) => {
-                console.log('here is a goal', goal);
                 let goalElem = document.createElement('p');
                 goalElem.innerHTML = goal.text;
                 goalElem.style.wordBreak = 'break-all';
@@ -161,8 +161,21 @@ function fetchYearGoals() {
                 if (goal.done == true) {
                     goalElem.style.textDecoration = 'line-through';
                 }
+                let exists;
+                for(let i = 0; i < currentDay.bullets.length; i++){
+                    let currGoal = currentDay.bullets[i];
+                    if(currGoal.text === goal.text) exists = true;
+                }
+                if(goal.daily == true && !exists){
+                    currentDay.bullets.push({
+                        text: goal.text,
+                        done: false,
+                        childList: [],
+                        features: 'normal',
+                    });
+                    renderBullets(currentDay.bullets);
+                }
                 goalElem.classList.add('year-goal');
-                console.log(goalElem);
                 document.querySelector('#yearGoal').appendChild(goalElem);
             });
         }
@@ -184,7 +197,6 @@ document.querySelector('.entry-form').addEventListener('submit', (submit) => {
         childList: [],
         features: 'normal',
     });
-    console.log(currentDay);
     document.querySelector('#bullets').innerHTML = '';
     renderBullets(currentDay.bullets);
     updateDay(currentDay);
@@ -192,12 +204,8 @@ document.querySelector('.entry-form').addEventListener('submit', (submit) => {
 
 // lets bullet component listen to when a bullet child is added
 document.querySelector('#bullets').addEventListener('added', function (e) {
-    console.log('got add event');
-    console.log(e.composedPath());
     let newJson = JSON.parse(e.composedPath()[0].getAttribute('bulletJson'));
     let index = JSON.parse(e.composedPath()[0].getAttribute('index'));
-    // console.log('newJson ' + JSON.stringify(newJson));
-    // console.log('index ' + JSON.stringify(index));
     // if 3rd layer of nesting
     if (e.composedPath().length > 7) {
         currentDay.bullets[index[0]].childList[index[1]] = newJson;
@@ -211,8 +219,6 @@ document.querySelector('#bullets').addEventListener('added', function (e) {
 
 // lets bullet component listen to when a bullet is deleted
 document.querySelector('#bullets').addEventListener('deleted', function (e) {
-    console.log('got deleted event');
-    console.log(e.composedPath());
     let index = JSON.parse(e.composedPath()[0].getAttribute('index'));
     let firstIndex = index[0];
     if (index.length > 1) {
@@ -235,8 +241,6 @@ document.querySelector('#bullets').addEventListener('deleted', function (e) {
 
 // lets bullet component listen to when a bullet is edited
 document.querySelector('#bullets').addEventListener('edited', function (e) {
-    console.log('got edited event');
-    console.log(e.composedPath()[0]);
     let newText = JSON.parse(e.composedPath()[0].getAttribute('bulletJson'))
         .text;
     let index = JSON.parse(e.composedPath()[0].getAttribute('index'));
@@ -263,8 +267,6 @@ document.querySelector('#bullets').addEventListener('edited', function (e) {
 
 // lets bullet component listen to when a bullet is marked done
 document.querySelector('#bullets').addEventListener('done', function (e) {
-    console.log('got done event');
-    console.log(e.composedPath()[0]);
     let index = JSON.parse(e.composedPath()[0].getAttribute('index'));
     let firstIndex = index[0];
     if (index.length > 1) {
@@ -287,8 +289,6 @@ document.querySelector('#bullets').addEventListener('done', function (e) {
 
 // lets bullet component listen to when a bullet is clicked category
 document.querySelector('#bullets').addEventListener('features', function (e) {
-    console.log('CHANGED CATEGORY');
-    console.log(e.composedPath()[0]);
     let newFeature = JSON.parse(e.composedPath()[0].getAttribute('bulletJson'))
         .features;
     let index = JSON.parse(e.composedPath()[0].getAttribute('index'));
