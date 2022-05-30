@@ -111,9 +111,11 @@ class GoalsEntry extends HTMLElement {
             this.dispatchEvent(this.done);
         });
 
-        this.shadowRoot.querySelector('#daily').addEventListener('click', () => {
-            this.dispatchEvent(this.daily);
-        });
+        this.shadowRoot
+            .querySelector('#daily')
+            .addEventListener('click', () => {
+                this.dispatchEvent(this.daily);
+            });
 
         // delete goal
         this.shadowRoot
@@ -144,8 +146,6 @@ class GoalsEntry extends HTMLElement {
             bubbles: true,
             composed: true,
         });
-
-
     }
 
     /**

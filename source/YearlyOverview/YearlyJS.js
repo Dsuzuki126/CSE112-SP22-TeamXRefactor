@@ -82,7 +82,6 @@ document.querySelector('#bullets').addEventListener('edited', function (e) {
 
 // lets bullet component listen to when a bullet is marked done
 document.querySelector('#bullets').addEventListener('done', function (e) {
-
     let index = e.composedPath()[0].getAttribute('index');
     currentYearRes.goals[index].done ^= true;
     updateYearsGoals(currentYearRes);
