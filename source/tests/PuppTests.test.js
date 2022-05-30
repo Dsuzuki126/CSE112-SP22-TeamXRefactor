@@ -7,17 +7,35 @@ describe('Google', () => {
     beforeAll(async () => {
         await page.goto('https://google.com');
     });
-
     it('should display "google" text on page', async () => {
         await expect(page).toMatch('google');
     });
 });*/
 //npm test source/tests/sampleP.test.js
+// need this line for the browser
+const puppeteer = require('puppeteer');
 
 describe('basic navigation for BJ', () => {
+    var browser = null;
+    var page = null;
+
     beforeAll(async () => {
+        // need this to extend the amount of time that the jest can run. I just arbitrarily set it to a high number
+        // so that we can test for a longer period
+        jest.setTimeout(90000);
+        // This sets up a browser so you can see the tests in action
+        browser = await puppeteer.launch({
+            headless: false,
+            // increase slowMo value to make the tests go through the browser more slowly and vice versa
+            // if things go too fast you may need to put in gaps using waitForTimeout
+            slowMo: 50,
+        });
+        page = await browser.newPage();
+        // used for seeing console messages
+        // page.on('console', (msg) => console.log('PAGE LOG:', msg.text()));
         await page.goto('http://127.0.0.1:5500/source/Login/Login.html');
-        await page.waitForTimeout(500);
+
+        await page.waitForTimeout(1000);
     });
 
     it('Test1: Initial Home Page - Shows create your login ', async () => {
@@ -26,36 +44,6 @@ describe('basic navigation for BJ', () => {
         });
         expect(headerText).toBe('Create your login!');
     });
-
-    /*
-
-    it('Test2: Try to access another page Daily - Shows create your login ', async () => {
-        await page.goto(
-            'http://127.0.0.1:5501/source/DailyOverview/DailyOverview.html'
-        );
-        await page.waitForTimeout(300);
-        const url = await page.evaluate(() => location.href);
-        expect(url).toMatch('http://127.0.0.1:5501/source/Login/Login.html');
-    });
-
-    it('Test3: Try to access another page Monthly - Shows create your login ', async () => {
-        await page.goto(
-            'http://127.0.0.1:5501/source/MonthlyOverview/MonthlyOverview.html'
-        );
-        await page.waitForTimeout(300);
-        const url = await page.evaluate(() => location.href);
-        expect(url).toMatch('http://127.0.0.1:5501/source/Login/Login.html');
-    });
-
-    it('Test4: Try to access another page Yearly - Shows create your login ', async () => {
-        await page.goto(
-            'http://127.0.0.1:5501/source/YearlyOverview/YearlyOverview.html'
-        );
-        await page.waitForTimeout(300);
-        const url = await page.evaluate(() => location.href);
-        expect(url).toMatch('http://127.0.0.1:5501/source/Login/Login.html');
-    });
-    */
 
     //Login tests
 
@@ -67,12 +55,16 @@ describe('basic navigation for BJ', () => {
         await page.$eval('#pin', (passwordInput) => {
             passwordInput.value = '1234';
         });
-        await page.waitForTimeout(300);
 
+        let msg = null;
         page.on('dialog', async (dialog) => {
-            expect(dialog.message()).toEqual('Incorrect password!');
+            await page.waitForTimeout(1000);
+            msg = dialog.message();
+            // we set up the alert dialog box dismiss handle here so this line only needs to be here once
             await dialog.dismiss();
         });
+        await page.click('#login-button', { clickCount: 1 });
+        expect(msg).toMatch('Please provide a username');
     });
 
     it('LoginTest2: try to create account with short username', async () => {
@@ -83,11 +75,14 @@ describe('basic navigation for BJ', () => {
         await page.$eval('#pin', (passwordInput) => {
             passwordInput.value = '1234';
         });
-        await page.waitForTimeout(300);
-
+        let msg = null;
         page.on('dialog', async (dialog) => {
-            expect(dialog.message()).toEqual('Incorrect password!');
+            await page.waitForTimeout(1000);
+            msg = dialog.message();
+            // await dialog.dismiss();
         });
+        await page.click('#login-button', { clickCount: 1 });
+        expect(msg).toMatch('Username must be at least 2 characters long');
     });
 
     it('LoginTest3: try to create account with bad username (forbidden characters)', async () => {
@@ -98,12 +93,14 @@ describe('basic navigation for BJ', () => {
         await page.$eval('#pin', (passwordInput) => {
             passwordInput.value = '1234';
         });
-        await page.waitForTimeout(300);
-
+        let msg = null;
         page.on('dialog', async (dialog) => {
-            expect(dialog.message()).toEqual('Incorrect password!');
+            await page.waitForTimeout(1000);
+            msg = dialog.message();
             // await dialog.dismiss();
         });
+        await page.click('#login-button', { clickCount: 1 });
+        expect(msg).toMatch('Username must not contain special characters');
     });
 
     it('LoginTest4: try to create account with pin that is too short', async () => {
@@ -114,12 +111,14 @@ describe('basic navigation for BJ', () => {
         await page.$eval('#pin', (passwordInput) => {
             passwordInput.value = '12';
         });
-        await page.waitForTimeout(300);
-
+        let msg = null;
         page.on('dialog', async (dialog) => {
-            expect(dialog.message()).toEqual('Incorrect password!');
+            await page.waitForTimeout(1000);
+            msg = dialog.message();
             // await dialog.dismiss();
         });
+        await page.click('#login-button', { clickCount: 1 });
+        expect(msg).toMatch('PIN must be at least 4 digits long');
     });
 
     it('LoginTest5: try to create account with bad pin (invalid characters)', async () => {
@@ -130,17 +129,19 @@ describe('basic navigation for BJ', () => {
         await page.$eval('#pin', (passwordInput) => {
             passwordInput.value = '1234abc';
         });
-        await page.waitForTimeout(300);
 
+        let msg = null;
         page.on('dialog', async (dialog) => {
-            expect(dialog.message()).toEqual('Incorrect password!');
+            await page.waitForTimeout(1000);
             // await dialog.dismiss();
+            msg = dialog.message();
         });
+        await page.click('#login-button', { clickCount: 1 });
+        expect(msg).toMatch('PIN must contain numbers only');
     });
 
     it('Test2: create an account and login - shows index page ', async () => {
         jest.setTimeout(30000);
-
         await page.$eval('#username', (usernameInput) => {
             usernameInput.value = 'SampleUsername';
         });
@@ -148,9 +149,6 @@ describe('basic navigation for BJ', () => {
         await page.$eval('#pin', (passwordInput) => {
             passwordInput.value = '1234';
         });
-        await page.waitForTimeout(300);
-
-        page.on('dialog', async (dialog) => {});
 
         await page.$eval('#login-button', (button) => {
             button.click();
@@ -174,41 +172,31 @@ describe('basic navigation for BJ', () => {
     });
 
     it('Test5: Input wrong password should give incorrect alert', async () => {
-        jest.setTimeout(30000);
+        // jest.setTimeout(30000);
         let msg;
+        await page.$eval('#username', (usernameInput) => {
+            usernameInput.value = 'SampleUsername';
+        });
 
         await page.$eval('#pin', (passwordInput) => {
             passwordInput.value = '123';
         });
-        await page.waitForTimeout(300);
 
         page.on('dialog', async (dialog) => {
+            await page.waitForTimeout(1000);
             msg = dialog.message();
-            // not sure why we can't dismiss it here tbh
-            /** ANSWER
-             * .on adds an event listener to the 'dialog' event,
-             * since there are other functions that get called previously
-             * the one defined in test 2 is dismissing it for us
-             * this is behavior that we want to try to avoid
-             * since we kinda want each test case to be by itself
-             * you can remove all the event listener functions for a
-             * specific event by doing
-             * 'page.removeAllEventListeners('dialog');
-             * to clear all the event listeners defined by previous test cases
-             */
+            // await dialog.dismiss()
         });
 
         await page.$eval('#login-button', (button) => {
             button.click();
         });
-
         expect(msg).toMatch('Incorrect password!');
     });
 
     it('Test6: go to index screen, make sure highlighted day is the current day', async () => {
         await page.goto('http://127.0.0.1:5500/source/Index/Index.html');
         await page.waitForTimeout(300);
-
         const currentDayHigh = await page.$eval('.today', (day) => {
             return day.innerHTML;
         });
@@ -607,6 +595,14 @@ describe('basic navigation for BJ', () => {
         expect(bulletText).toMatch('line-through');
     });
 
+    it('Test30: mark not done monthly goals', async () => {
+        let bulletText = await page.$eval('goals-entry', (bulletList) => {
+            return bulletList.shadowRoot.querySelector('#done').innerText;
+        });
+
+        expect(bulletText).toMatch('Mark Not Done');
+    });
+
     it('Test30: check monthly goals marked done in daily overview', async () => {
         await page.waitForTimeout('300');
 
@@ -941,5 +937,65 @@ describe('basic navigation for BJ', () => {
     it('Test50: Change background color', async () => {
         const currentTheme = await page.select('#themes', '#ECC7C7');
         expect(currentTheme.toString()).toMatch('#ECC7C7');
+    });
+
+    it('Test51: Check MonthlyOverview link text is correct on DailyOverview', async () => {
+        // Testing solution to Issue #27
+
+        // gets .today and passes it to callback function to click today calendar btn
+        await page.$eval('.today', (todayBtn) => {
+            todayBtn.click();
+        });
+
+        /* gets current month name */
+        const currentDate = new Date();
+        const monthNames = [
+            'January',
+            'February',
+            'March',
+            'April',
+            'May',
+            'June',
+            'July',
+            'August',
+            'September',
+            'October',
+            'November',
+            'December',
+        ];
+        const expected = `${
+            monthNames[currentDate.getMonth()]
+        } ${currentDate.getFullYear()} Overview`;
+
+        /* gets MonthlyOverview link text */
+        const monthlyOverviewLink = await page.$('#monthView > a:first-child');
+        const linkText = await (
+            await monthlyOverviewLink.getProperty('textContent')
+        ).jsonValue();
+
+        expect(expected).toMatch(linkText); // compare expected month to real month
+    });
+    it('Test52: Check YearlyOverview link text is correct on MonthlyOverview', async () => {
+        // Testing solution to Issue #27
+
+        // gets MonthlyOverview link and passes it to callback function to click MonthlyOverview btn
+        await page.$eval('#monthView > a:first-child', (todayBtn) => {
+            todayBtn.click();
+        });
+
+        /* gets current year */
+        const currentDate = new Date();
+        const expected = `${currentDate.getFullYear()} Overview`;
+
+        /* gets MonthlyOverview link text */
+        const yearlyOverviewLink = await page.$('#back');
+        const linkText = await (
+            await yearlyOverviewLink.getProperty('textContent')
+        ).jsonValue();
+
+        expect(expected).toMatch(linkText); // compare expected month to real month
+    });
+    it('close browser', async () => {
+        browser.close();
     });
 });

@@ -167,6 +167,9 @@ class GoalsEntry extends HTMLElement {
             this.shadowRoot.querySelector(
                 '.bullet-content'
             ).style.textDecoration = 'line-through';
+            this.shadowRoot.querySelector('#done').innerText = 'Mark Not Done';
+        } else {
+            this.shadowRoot.querySelector('#done').innerText = 'Mark Done';
         }
     }
 }

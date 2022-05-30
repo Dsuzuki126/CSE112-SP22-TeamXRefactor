@@ -16,16 +16,28 @@ if (currentDateStr == 'html') {
     currentDateStr = '05/25/2020';
 }
 
-//set back button
-document.getElementById('monthView').children[0].href +=
-    '#' + currentDateStr.substring(0, 2) + '/' + currentDateStr.substring(6);
-
 let relative = 0;
 // Buttons
 const add = document.getElementById('addPhoto');
+const cancel = document.getElementById('cancel');
 const save = document.getElementById('save');
 const right = document.getElementById('right');
 const left = document.getElementById('left');
+const LENGTH_OF_YEAR_NUMBER = -4;
+const monthNames = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
+];
 
 // store current day data to update when user leaves page
 let currentDay;
@@ -55,9 +67,37 @@ window.addEventListener('load', () => {
         };
         document.getElementById('date').innerHTML = 'Today: ' + currentDateStr;
     }
+
+    setMonthlyOverviewLink();
 });
 
 
+
+/**
+ * Sets the MonthlyOverview link to say '<month> <year> Overview' so that users
+ * clearly know what MonthOverview they are going to from DailyOverview page
+ * @returns void
+ */
+function setMonthlyOverviewLink() {
+    // get MonthlyOverview link in top left corner of DailyOverview screen
+    let monthlyOverviewLink = document.querySelector(
+        '#monthView > a:first-child'
+    );
+    // set the link to be to the month of the current DailyOverview
+    monthlyOverviewLink.href +=
+        '#' +
+        currentDateStr.substring(0, 2) +
+        '/' +
+        currentDateStr.substring(6);
+    /* set link text */
+    const monthString = currentDateStr.substring(
+        0,
+        currentDateStr.indexOf('/')
+    );
+    const month = monthNames[parseInt(monthString) - 1];
+    const year = currentDateStr.slice(LENGTH_OF_YEAR_NUMBER);
+    monthlyOverviewLink.textContent = `${month} ${year} Overview`;
+}
 
 /**
  * Gets the current day object (and creates one if one doesn't exist)
@@ -402,16 +442,29 @@ input.addEventListener('change', (event) => {
 // Add an image to the canvas
 add.addEventListener('click', () => {
     input.type = 'file';
+    //add.style.display = 'none';
+    cancel.style.display = 'inline';
     save.style.display = 'inline';
-    canv.clearRect(0, 0, canvas.width, canvas.height);
     relative = window.img.length;
+    console.log(currentDay.photos);
+});
+cancel.addEventListener('click', () => {
+    input.type = 'hidden';
+    //add.style.display = 'inline';
+    save.style.display = 'none';
+    cancel.style.display = 'none';
+    relative = 0;
 });
 // Save image and will hide everything else
 // REQUIRED TO PRESS SAVE AFTER UPLOAD
 save.addEventListener('click', () => {
     input.type = 'hidden';
+    //add.style.display = 'inline';
     save.style.display = 'none';
+    cancel.style.display = 'none';
 
+    // clear image space before displaying new image
+    canv.clearRect(0, 0, canvas.width, canvas.height);
     let imgDimension = getDimensions(
         canvas.width,
         canvas.height,
@@ -428,6 +481,8 @@ save.addEventListener('click', () => {
 
     // Add Item and update whenever save
     currentDay.photos.push(window.img[relative].src);
+    // console.log(currentDay.photos)
+    // console.log(window.img[relative].src)
     updateDay(currentDay);
 });
 left.addEventListener('click', () => {
