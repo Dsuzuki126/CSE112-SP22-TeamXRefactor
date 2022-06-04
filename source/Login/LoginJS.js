@@ -32,10 +32,11 @@ let loginButton = document.getElementById('login-button');
 loginButton.addEventListener('click', () => {
     determineUserState(loginState);
 });
+
 window.addEventListener('keydown', (e) => {
     if (e.key == 'Enter') {
         loginButton.click();
-        determineUserState(loginState);
+        // determineUserState(loginState);
     }
 });
 
