@@ -20,11 +20,11 @@ body {
 #monthHeader {
     text-align: center;
     font-size: 2.5vw;
-    color:rgb(41, 38, 38);
+    color: rgb(41, 38, 38);
     margin-top: 0;
 }
 #monthHeader {
-    margin-bottom: 1vw;;
+    margin-bottom: 1vw;
 }
 #header {
     grid-area: head;
