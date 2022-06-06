@@ -65,8 +65,6 @@ document.querySelector('#themes').addEventListener('change', () => {
     // eslint-disable-next-line no-undef
     let req = getSettings();
     req.onsuccess = function (e) {
-        console.log('got settings');
-        console.log(e.target.result);
         let settingObj = e.target.result;
         settingObj.theme = document.querySelector('#themes').value;
         document.documentElement.style.setProperty(
