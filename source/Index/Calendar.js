@@ -186,7 +186,7 @@ function setupCalendar() {
 
     //pad with more fake days at the end
     let monthLastDow = lastDow(currMonthNumber, currYearNumber);
-    for (let i = monthLastDow; i < 7; i++) {
+    for (let i = monthLastDow; i < 6; i++) {
         let blank_day = document.createElement('li');
         blank_day.classList.add('day');
         blank_day.classList.add('blank_day');
