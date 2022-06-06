@@ -68,9 +68,9 @@ class BulletEntry extends HTMLElement {
                     display: block;
                 }
                 .dropdownButton {
-                    font-size: 1.5vh;
-                    width: 2vh;
-                    height: 2vh;
+                    font-size: 1.1vw;
+                    width: 1vw;
+                    height: 1vw;
                     transform: translateY(-0.1vh);
                     padding: 0;
                     background-color: #e4e4e4;

@@ -159,8 +159,8 @@ function fetchMonthGoals() {
                 goalElem.style.wordBreak = 'break-all';
                 goalElem.style.overflowX = 'hidden';
                 goalElem.style.marginTop = '0';
-                goalElem.style.paddingRight = '1vh';
-                goalElem.style.fontSize = '1.25vh';
+                goalElem.style.paddingRight = '0.5vw';
+                goalElem.style.fontSize = '0.9vw';
                 if (goal.done == true) {
                     goalElem.style.textDecoration = 'line-through';
                 }
@@ -196,8 +196,8 @@ function fetchYearGoals() {
                 goalElem.style.wordBreak = 'break-all';
                 goalElem.style.overflowX = 'hidden';
                 goalElem.style.marginTop = '0';
-                goalElem.style.paddingRight = '1vh';
-                goalElem.style.fontSize = '1.25vh';
+                goalElem.style.paddingRight = '0.5vw';
+                goalElem.style.fontSize = '0.9vw';
                 if (goal.done == true) {
                     goalElem.style.textDecoration = 'line-through';
                 }

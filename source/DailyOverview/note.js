@@ -8,19 +8,22 @@ class noteBox extends HTMLElement {
         template.innerHTML = `
             <style>
                 * {
-                    font-size: 2vh;
-                    color: black;
+                    font-size: 1.1vw;
+                    color: #585858;
                 }
                 .noteContent{
                     overflow: auto;
                     resize: none;
                     width: 100%;
-                    height: 69vh;
+                    height: 29vw;
                     max-height: 40vw;
                     border-style: none; 
                 }
                 .note{
                     //word-break: break-all;
+                }
+                ::-webkit-scrollbar {
+                    display: none;
                 }
             </style>
             <div id="note">
