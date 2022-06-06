@@ -9,7 +9,7 @@ class GoalsEntry extends HTMLElement {
                 .bullet{
                     word-break: break-all;
                     max-width: 100%;
-                    font-size: 2.3vh;
+                    font-size: 1.1vw;
                 }
                 .bullet-container{
                     display: inline-block; !important
@@ -36,13 +36,13 @@ class GoalsEntry extends HTMLElement {
                     display: none;
                     position: absolute;
                     background-color: #e4e4e4;
-                    min-width: 10vh;
+                    min-width: 6vw;
                     z-index: 1;
                     transform: translateY(-5px);
                 }
                 .dropdown p {
                     color: black;
-                    font-size: 1.7vh;
+                    font-size: 1vw;
                     padding: 0.5vh 0 0.5vh 0.5vh;
                     display: block;
                     margin: 0;
@@ -56,9 +56,9 @@ class GoalsEntry extends HTMLElement {
                     display: block;
                 }
                 .dropdownButton {
-                    font-size: 1.5vh;
-                    width: 2vh;
-                    height: 2vh;
+                    font-size: 1.1vw;
+                    width: 1vw;
+                    height: 1vw;
                     transform: translateY(-0.1vh);
                     padding: 0;
                     background-color: #e4e4e4;
