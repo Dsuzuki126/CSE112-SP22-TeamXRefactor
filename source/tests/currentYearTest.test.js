@@ -36,7 +36,7 @@ describe('basic navigation for BJ', () => {
         });
 
         await page.$eval('#pin', (passwordInput) => {
-            passwordInput.value = '1234';
+            passwordInput.value = '19Lz';
         });
         await page.waitForTimeout(300);
 

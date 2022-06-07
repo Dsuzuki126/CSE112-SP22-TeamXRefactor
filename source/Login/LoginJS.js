@@ -34,23 +34,10 @@ var error = document.getElementById('error');
 //make the login button redirect to Index
 let loginButton = document.getElementById('login-button');
 
-if (loginState == 'new') {
-    passwordField.onfocus = function () {
-        passwordField.classList.add('clicking');
-        message.style.display = 'block';
-    };
-}
-passwordField.onfocus = function () {
-    passwordField.classList.add('clicking');
-};
-
-usernameField.onfocus = function () {
-    usernameField.classList.add('clicking');
-};
+// //
 
 loginButton.addEventListener('click', () => {
-    message.style.display = 'none';
-    message.classList.add('hidden');
+    //message.style.display = 'none';
     handleLoginButton();
 });
 // window.addEventListener("keydown", (e) => {
@@ -67,7 +54,6 @@ loginButton.addEventListener('click', () => {
 let resetPasswordButton = document.getElementById('reset-password-button');
 resetPasswordButton.addEventListener('click', () => {
     message.style.display = 'block';
-    message.classList.remove('hidden');
     validFormat();
     handleResetPassword();
 });
@@ -118,6 +104,28 @@ function getLoginState() {
     };
 }
 
+
+passwordField.onfocus = function() {
+    console.log("12345");
+     message.style.display = 'block';
+     passwordField.classList.add('clicking');
+    };
+    
+    passwordField.onblur = function() {
+        passwordField.classList.remove('clicking');
+     }
+    
+    passwordField.onfocus = function () {
+        passwordField.classList.add('clicking');
+    };
+    
+    usernameField.onfocus = function () {
+        usernameField.classList.add('clicking');
+    };
+    
+    usernameField.onblur = function () {
+        usernameField.classList.remove('clicking');
+    };    
 // if (loginState = 'new') {
 //     passwordField.onfocus = function () {
 //     document.getElementById('message').style.display = 'block';
@@ -169,6 +177,7 @@ function handleSignup(newUsername, newPassword) {
  */
 function handleResetPassword() {
     resetPasswordButton.innerHTML = 'Comfirm';
+    resetPasswordButton.addEventListener('click', () => {
     if (loginState == 'returning') {
         // update settings
         if (verifyValidInputs(settingObj.username, passwordField.value)) {
@@ -188,6 +197,7 @@ function handleResetPassword() {
     } else {
         handleSignup(usernameField.value, passwordField.value);
     }
+});
 }
 
 /*function verifyValidInputs(newUsername, newPassword){
@@ -198,16 +208,19 @@ function handleResetPassword() {
  */
 function verifyValidInputs(newUsername, newPassword) {
     var error = document.getElementById('error');
+    var errorU = document.getElementById('errorU');
+
+    
     //prohibit empty username
     if (newUsername == '') {
-        error.textContent = 'Please provide a username';
-        error.style.display = 'block';
+        errorU.textContent = 'Please provide a username';
+        errorU.style.display = 'block';
         return false;
     }
     //prohibit short names
     else if (newUsername.length < MIN_NAME_LENGTH) {
-        error.textContent = 'Username must be at least 2 characters long';
-        error.style.display = 'block';
+        errorU.textContent = 'Username must be at least 2 characters long';
+        errorU.style.display = 'block';
         return false;
     }
     //prohibit invalid characters in username
@@ -251,14 +264,16 @@ function validFormat() {
     var capital = document.getElementById('capital');
     var number = document.getElementById('number');
     var length = document.getElementById('length');
-    var message = document.getElementById('message');
     // When the user clicks on the password field, show the message box
-    // myInput.onfocus = function () {
-    //     message.style.display = 'block';
-    //     myInput.classList.add('clicking');
-    // };
+    passwordField.onfocus = function() {
+        document.getElementById("message").style.display = "block";
+      }
+      
     // When the user clicks outside of the password field, hide the message box
-
+    passwordField.onblur = function() {
+        document.getElementById("message").style.display = "none";
+       }
+      
     // When the user starts to type something inside the password field
     passwordField.onkeyup = function () {
         // Validate lowercase letters
@@ -355,6 +370,5 @@ function setReturningUser() {
 }
 
 function hide() {
-    //document.getElementById('message').setAttribute("hidden", "hidden");
     document.getElementById('message').style.display = 'none';
 }
