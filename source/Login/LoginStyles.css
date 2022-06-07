@@ -153,17 +153,17 @@ input {
     height: 30%;
     margin-left: 7.5vw;
     background: #ece4ce;
-    color: #000;
+    color: rgb(78, 74, 74);
     padding: 3%;
     margin-top: 1%;
     font-size: 20px;
     border: 5%;
+
 }
 
 #message p {
-    padding-left: 20px;
+    padding-left: 30px;
     padding-bottom: 10px;
-
     font-size: 20px;
 }
 
@@ -190,4 +190,6 @@ input {
 }
 .clickable {
     float: right;
+    width: 30px;
+    height:30px
 }

@@ -171,9 +171,7 @@ describe('basic navigation for BJ', () => {
         });
 
         await page.$eval('#pin', (passwordInput) => {
-            passwordInput.value = '1997
-            
-            ';
+            passwordInput.value = '1997';
         });
 
         await page.keyboard.press('Enter'); // to check for the enter key functionality

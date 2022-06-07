@@ -29,14 +29,13 @@ let passwordField = document.getElementById('pin');
 //password require message
 var message = document.getElementById('message');
 //password/username error message
+var errP = document.getElementById('errorP');
 
 //make the login button redirect to Index
 let loginButton = document.getElementById('login-button');
-
-// //
-
 loginButton.addEventListener('click', () => {
-    //message.style.display = 'none';
+    message.style.display = 'block';
+    validFormat();
     handleLoginButton();
 });
 // window.addEventListener("keydown", (e) => {
@@ -204,7 +203,6 @@ function handleResetPassword() {
  */
 function verifyValidInputs(newUsername, newPassword) {
     var errU = document.getElementById('errorU');
-    var errP = document.getElementById('errorP');
 
     //prohibit empty username
     if (newUsername.length == 0) {
@@ -261,16 +259,15 @@ function validFormat() {
     var length = document.getElementById('length');
     var number = document.getElementById('number');
     var letter = document.getElementById('letter');
-    var capital = document.getElementById('specialC');
     // When the user clicks on the password field, show the message box
     // passwordField.onfocus = function () {
     //     document.getElementById('message').style.display = 'block';
     // };
 
     // When the user clicks outside of the password field, hide the message box
-    passwordField.onblur = function () {
-        document.getElementById('message').style.display = 'none';
-    };
+    // passwordField.onblur = function () {
+    //     document.getElementById('message').style.display = 'none';
+    // };
 
     
     // When the user starts to type something inside the password field
@@ -287,18 +284,14 @@ function validFormat() {
             if (pin_regex.test(passwordField.value)) {
                 number.classList.remove('valid');
                 number.classList.add('invalid');
-                
+                letter.classList.remove('valid');
+                letter.classList.add('invalid');
             } else {
                 number.classList.remove('invalid');
                 number.classList.add('valid');
                 letter.classList.remove('invalid');
                 letter.classList.add('valid');
-                // return false;
             }
-
-
-               // Validate length
-       
     };
 }
 
@@ -318,9 +311,9 @@ function handleLogin(password) {
         sessionStorage.setItem('loggedIn', 'true');
         goHome();
     } else {
-        errM.textContent = 'Incorrect password!';
+        errP.textContent = 'Incorrect password!';
         passwordField.style.border = "1px solid Red";  
-        errM.style.display = "block";
+        errP.style.display = "block";
     }
 }
 
