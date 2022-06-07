@@ -104,28 +104,27 @@ function getLoginState() {
     };
 }
 
+passwordField.onfocus = function () {
+    console.log('12345');
+    message.style.display = 'block';
+    passwordField.classList.add('clicking');
+};
 
-passwordField.onfocus = function() {
-    console.log("12345");
-     message.style.display = 'block';
-     passwordField.classList.add('clicking');
-    };
-    
-    passwordField.onblur = function() {
-        passwordField.classList.remove('clicking');
-     }
-    
-    passwordField.onfocus = function () {
-        passwordField.classList.add('clicking');
-    };
-    
-    usernameField.onfocus = function () {
-        usernameField.classList.add('clicking');
-    };
-    
-    usernameField.onblur = function () {
-        usernameField.classList.remove('clicking');
-    };    
+passwordField.onblur = function () {
+    passwordField.classList.remove('clicking');
+};
+
+passwordField.onfocus = function () {
+    passwordField.classList.add('clicking');
+};
+
+usernameField.onfocus = function () {
+    usernameField.classList.add('clicking');
+};
+
+usernameField.onblur = function () {
+    usernameField.classList.remove('clicking');
+};
 // if (loginState = 'new') {
 //     passwordField.onfocus = function () {
 //     document.getElementById('message').style.display = 'block';
@@ -178,26 +177,26 @@ function handleSignup(newUsername, newPassword) {
 function handleResetPassword() {
     resetPasswordButton.innerHTML = 'Comfirm';
     resetPasswordButton.addEventListener('click', () => {
-    if (loginState == 'returning') {
-        // update settings
-        if (verifyValidInputs(settingObj.username, passwordField.value)) {
-            let userObject = {
-                username: settingObj.username,
-                password: passwordField.value,
-                theme: '#d4ffd4',
-            };
-            // eslint-disable-next-line no-undef
-            updateSettings(userObject);
-            settingObj.password = passwordField.value;
+        if (loginState == 'returning') {
+            // update settings
+            if (verifyValidInputs(settingObj.username, passwordField.value)) {
+                let userObject = {
+                    username: settingObj.username,
+                    password: passwordField.value,
+                    theme: '#d4ffd4',
+                };
+                // eslint-disable-next-line no-undef
+                updateSettings(userObject);
+                settingObj.password = passwordField.value;
 
-            // log the user in
-            sessionStorage.setItem('loggedIn', 'true');
-            goHome();
+                // log the user in
+                sessionStorage.setItem('loggedIn', 'true');
+                goHome();
+            }
+        } else {
+            handleSignup(usernameField.value, passwordField.value);
         }
-    } else {
-        handleSignup(usernameField.value, passwordField.value);
-    }
-});
+    });
 }
 
 /*function verifyValidInputs(newUsername, newPassword){
@@ -210,7 +209,6 @@ function verifyValidInputs(newUsername, newPassword) {
     var error = document.getElementById('error');
     var errorU = document.getElementById('errorU');
 
-    
     //prohibit empty username
     if (newUsername == '') {
         errorU.textContent = 'Please provide a username';
@@ -265,15 +263,15 @@ function validFormat() {
     var number = document.getElementById('number');
     var length = document.getElementById('length');
     // When the user clicks on the password field, show the message box
-    passwordField.onfocus = function() {
-        document.getElementById("message").style.display = "block";
-      }
-      
+    passwordField.onfocus = function () {
+        document.getElementById('message').style.display = 'block';
+    };
+
     // When the user clicks outside of the password field, hide the message box
-    passwordField.onblur = function() {
-        document.getElementById("message").style.display = "none";
-       }
-      
+    passwordField.onblur = function () {
+        document.getElementById('message').style.display = 'none';
+    };
+
     // When the user starts to type something inside the password field
     passwordField.onkeyup = function () {
         // Validate lowercase letters
