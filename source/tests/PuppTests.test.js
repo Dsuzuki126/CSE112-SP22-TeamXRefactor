@@ -171,7 +171,9 @@ describe('basic navigation for BJ', () => {
         });
 
         await page.$eval('#pin', (passwordInput) => {
-            passwordInput.value = '19Le';
+            passwordInput.value = '1997
+            
+            ';
         });
 
         await page.keyboard.press('Enter'); // to check for the enter key functionality
@@ -233,7 +235,7 @@ describe('basic navigation for BJ', () => {
         });
 
         await page.$eval('#pin', (passwordInput) => {
-            passwordInput.value = '20Ww';
+            passwordInput.value = '2000';
         });
         await page.$eval('#reset-password-button', (button) => {
             button.click();
@@ -250,11 +252,11 @@ describe('basic navigation for BJ', () => {
         });
 
         await page.$eval('#pin', (passwordInput) => {
-            passwordInput.value = '19Le';
+            passwordInput.value = '1997';
         });
 
         await page.click('#login-button', { clickCount: 2 });
-        msg = await page.$eval('#error', (incorrectA) => {
+        msg = await page.$eval('#errM', (incorrectA) => {
             return incorrectA.innerHTML;
         });
         expect(msg).toBe('Incorrect password!');

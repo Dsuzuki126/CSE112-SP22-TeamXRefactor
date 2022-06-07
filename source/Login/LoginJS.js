@@ -3,7 +3,7 @@ const MIN_NAME_LENGTH = 2;
 const MIN_PIN_LENGTH = 4;
 
 //PIN restriction regex (identify bad PINs)
-//const pin_regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
+const pin_regex = /\D/;
 //Username restriction regex (identify bad Usernames)
 const name_regex = /[^\w-]/;
 
@@ -29,7 +29,6 @@ let passwordField = document.getElementById('pin');
 //password require message
 var message = document.getElementById('message');
 //password/username error message
-var error = document.getElementById('error');
 
 //make the login button redirect to Index
 let loginButton = document.getElementById('login-button');
@@ -177,7 +176,8 @@ function handleSignup(newUsername, newPassword) {
 function handleResetPassword() {
     resetPasswordButton.innerHTML = 'Comfirm';
     resetPasswordButton.addEventListener('click', () => {
-        if (loginState == 'returning') {
+        //loginButton.removeEventListener('click', handleLoginButton);
+    
             // update settings
             if (verifyValidInputs(settingObj.username, passwordField.value)) {
                 let userObject = {
@@ -193,9 +193,6 @@ function handleResetPassword() {
                 sessionStorage.setItem('loggedIn', 'true');
                 goHome();
             }
-        } else {
-            handleSignup(usernameField.value, passwordField.value);
-        }
     });
 }
 
@@ -206,47 +203,50 @@ function handleResetPassword() {
  * @param {String} newPassword password to check
  */
 function verifyValidInputs(newUsername, newPassword) {
-    var error = document.getElementById('error');
-    var errorU = document.getElementById('errorU');
+    var errU = document.getElementById('errorU');
+    var errP = document.getElementById('errorP');
 
     //prohibit empty username
-    if (newUsername == '') {
-        errorU.textContent = 'Please provide a username';
-        errorU.style.display = 'block';
+    if (newUsername.length == 0) {
+        errU.textContent = 'Please provide a username';
+        //passwordField.style.border = "1px solid Red";  
+        usernameField.style.border = "1px solid Red";  
+        errU.style.display = 'block';
         return false;
     }
     //prohibit short names
     else if (newUsername.length < MIN_NAME_LENGTH) {
-        errorU.textContent = 'Username must be at least 2 characters long';
-        errorU.style.display = 'block';
+        errU.textContent = 'Username must be at least 2 characters long';
+        errU.style.display = 'block';
+        usernameField.style.border = "1px solid Red";  
         return false;
     }
     //prohibit invalid characters in username
     else if (name_regex.test(newUsername)) {
-        error.textContent = 'Username must not contain special characters';
-        error.style.display = 'block';
+        errU.textContent = 'Username must not contain special characters';
+        errU.style.display = 'block';
+        usernameField.style.border = "1px solid Red";  
+
         return false;
     }
+    
 
     //prohibit short passwords
     else if (newPassword.length < MIN_PIN_LENGTH) {
-        error.innerHTML = 'PIN must be at least 4 digits long';
-        error.style.display = 'block';
+        errU.style.display = 'none';
+        errP.textContent = 'PIN must be at least 4 digits long';
+        errP.style.display = 'block';
+        usernameField.style.border = ''
+        passwordField.style.border = "1px solid Red";  
         return false;
     }
     //prohibit non-numeric PIN
-    else if (
-        !newPassword.match('.*\\d.*') ||
-        !newPassword.match('.*[a-z].*') ||
-        !newPassword.match('.*[A-Z].*')
-    ) {
-        //alert('PIN must contain numbers only');
-        error.textContent = 'PIN must Satisfy requirment below';
-        error.style.display = 'block';
-        return false;
-    } else if (name_regex.test(newPassword)) {
-        error.textContent = 'PIN must not contain special characters';
-        error.style.display = 'block';
+    else if (pin_regex.test(newPassword)) {
+        errU.style.display = 'none';
+        errP.textContent = 'PIN must contain numbers only';
+        errP.style.display = 'block';
+        usernameField.style.border = ''
+        passwordField.style.border = "1px solid Red";  
         return false;
     }
 
@@ -258,56 +258,23 @@ function verifyValidInputs(newUsername, newPassword) {
 
 function validFormat() {
     // var myInput = document.getElementById('pin');
-    var letter = document.getElementById('letter');
-    var capital = document.getElementById('capital');
-    var number = document.getElementById('number');
     var length = document.getElementById('length');
+    var number = document.getElementById('number');
+    var letter = document.getElementById('letter');
+    var capital = document.getElementById('specialC');
     // When the user clicks on the password field, show the message box
-    passwordField.onfocus = function () {
-        document.getElementById('message').style.display = 'block';
-    };
+    // passwordField.onfocus = function () {
+    //     document.getElementById('message').style.display = 'block';
+    // };
 
     // When the user clicks outside of the password field, hide the message box
     passwordField.onblur = function () {
         document.getElementById('message').style.display = 'none';
     };
 
+    
     // When the user starts to type something inside the password field
     passwordField.onkeyup = function () {
-        // Validate lowercase letters
-        var lowerCaseLetters = /[a-z]/g;
-        if (passwordField.value.match(lowerCaseLetters)) {
-            letter.classList.remove('invalid');
-            letter.classList.add('valid');
-        } else {
-            letter.classList.remove('valid');
-            letter.classList.add('invalid');
-            // return false;
-        }
-
-        // Validate capital letters
-        var upperCaseLetters = /[A-Z]/g;
-        if (passwordField.value.match(upperCaseLetters)) {
-            capital.classList.remove('invalid');
-            capital.classList.add('valid');
-        } else {
-            capital.classList.remove('valid');
-            capital.classList.add('invalid');
-            // return false;
-        }
-
-        // Validate numbers
-        var numbers = /[0-9]/g;
-        if (passwordField.value.match(numbers)) {
-            number.classList.remove('invalid');
-            number.classList.add('valid');
-        } else {
-            number.classList.remove('valid');
-            number.classList.add('invalid');
-            // return false;
-        }
-
-        // Validate length
         if (passwordField.value.length >= 4) {
             length.classList.remove('invalid');
             length.classList.add('valid');
@@ -315,6 +282,23 @@ function validFormat() {
             length.classList.remove('valid');
             length.classList.add('invalid');
         }
+    
+        //var numbers = /[0-9]/g;
+            if (pin_regex.test(passwordField.value)) {
+                number.classList.remove('valid');
+                number.classList.add('invalid');
+                
+            } else {
+                number.classList.remove('invalid');
+                number.classList.add('valid');
+                letter.classList.remove('invalid');
+                letter.classList.add('valid');
+                // return false;
+            }
+
+
+               // Validate length
+       
     };
 }
 
@@ -330,11 +314,13 @@ function handleLogin(password) {
     if (correctPassword === password) {
         //set login flag that user logged in
         // eslint-disable-next-line no-undef
+        //passwordField.style.border = "";  
         sessionStorage.setItem('loggedIn', 'true');
         goHome();
     } else {
-        error.textContent = 'Incorrect password!';
-        error.style.display = 'block';
+        errM.textContent = 'Incorrect password!';
+        passwordField.style.border = "1px solid Red";  
+        errM.style.display = "block";
     }
 }
 
@@ -363,6 +349,7 @@ function setReturningUser() {
     resetPasswordButton.removeAttribute('hidden');
     document.getElementById('username').style.display = 'none';
     document.getElementById('US').innerHTML = '';
+
     document.getElementById('title').innerText = 'Welcome back!';
     loginButton.innerText = 'Sign In';
 }
