@@ -45,7 +45,7 @@ body {
     position: absolute;
 }
 
-.errorshow{
+.errorshow {
     margin-left: 5%;
 
     align-items: left;
@@ -145,7 +145,7 @@ input {
 }
 
 #message {
-    display:none;
+    display: none;
     align-items: center;
     position: relative;
     text-align: left;
@@ -159,8 +159,6 @@ input {
     font-size: 20px;
     border: 5%;
 }
-
-
 
 #message p {
     padding-left: 20px;
