@@ -1,4 +1,4 @@
-# Group 12 - Stegosource
+# Group 7 - Team X-Refactor
 
 [Bullet Journal](https://cse112-sp22-teamxrefactor.github.io/CSE112-SP22-TeamXRefactor/source/Login/Login.html)
 
