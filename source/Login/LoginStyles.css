@@ -158,7 +158,6 @@ input {
     margin-top: 1%;
     font-size: 20px;
     border: 5%;
-
 }
 
 #message p {
@@ -191,5 +190,5 @@ input {
 .clickable {
     float: right;
     width: 30px;
-    height:30px
+    height: 30px;
 }
