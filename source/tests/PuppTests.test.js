@@ -123,7 +123,7 @@ describe('basic navigation for BJ', () => {
         });
         let msg = null;
         await page.click('#login-button', { clickCount: 1 });
-        msg = await page.$eval('#errM', (pinShort) => {
+        msg = await page.$eval('#errP', (pinShort) => {
             return pinShort.innerHTML;
         });
         expect(msg).toBe('PIN must be at least 4 digits long');
@@ -140,7 +140,7 @@ describe('basic navigation for BJ', () => {
 
         let msg = null;
         await page.click('#login-button', { clickCount: 1 });
-        msg = await page.$eval('#errM', (pinSp) => {
+        msg = await page.$eval('#errP', (pinSp) => {
             return pinSp.innerHTML;
         });
         expect(msg).toBe('PIN must contain numbers only');
@@ -187,7 +187,7 @@ describe('basic navigation for BJ', () => {
         });
 
         await page.click('#login-button', { clickCount: 1 });
-        msg = await page.$eval('#errM', (incorrect) => {
+        msg = await page.$eval('#errP', (incorrect) => {
             return incorrect.innerHTML;
         });
         expect(msg).toBe('Incorrect password!');
@@ -216,7 +216,7 @@ describe('basic navigation for BJ', () => {
         });
 
         await page.click('#login-button', { clickCount: 2 });
-        msg = await page.$eval('#errM', (incorrectA) => {
+        msg = await page.$eval('#errP', (incorrectA) => {
             return incorrectA.innerHTML;
         });
         expect(msg).toBe('Incorrect password!');

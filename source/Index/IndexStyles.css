@@ -48,8 +48,8 @@ Structure
 
 #right-bar {
     margin-right: 8vw;
-    height: 65vh;
-    width: 20vw;
+    height: 33vw;
+    width: 15vw;
     flex-grow: 4;
 }
 
@@ -68,12 +68,11 @@ Structure
 }
 
 #content {
-    overflow: hidden;
-    overflow-y: scroll;
-    height: 50vh;
-    max-height: 100vh;
+    overflow-y: auto;
+    overflow: -moz-scrollbars-vertical;
     width: auto;
-    margin: 1vw 2vw;
+    margin: 1vw;
+    height: 21vw;
 }
 
 #content > div {
@@ -92,14 +91,10 @@ year-nav {
     margin-inline: auto;
 }
 
-#content::-webkit-scrollbar {
-    display: none;
-}
-
 #content h2 {
     margin-top: 0;
     margin-bottom: 0;
-    font-size: 1.25em;
+    font-size: 1.8vw;
 }
 
 .horiz {
@@ -115,24 +110,24 @@ year-nav {
 
 .collapsible_child * {
     width: max-content;
-    padding: 0.5em;
+    padding: 0.5vw;
     border-radius: 0.5em;
 }
 
 .monthlink {
     text-decoration: none;
-    font-size: 1.25em;
     color: black;
     width: max-content;
-    padding: 0.5em;
+    padding: 0.5vw;
     border-radius: 0.5em;
-}
-
-.collapsible_child *:hover {
-    background-color: var(--clr-bg-hover);
+    font-size: 1.3vw;
 }
 
 .monthlink:hover {
+    background-color: var(--clr-bg-hover);
+}
+
+.collapsible_child *:hover {
     background-color: var(--clr-bg-hover);
 }
 
@@ -168,7 +163,7 @@ button:hover {
 }
 
 .coll_yr_button {
-    width: 35px;
+    width: 2vw;
     padding: 0;
     border: 0;
     margin-right: 1rem;
@@ -201,21 +196,15 @@ button:hover {
 
 #content a {
     text-decoration: none;
-    font-size: 1.25em;
     color: black;
+    font-size: 1.6vw;
 }
 
-year-link {
+.year-link {
     text-decoration: none;
-    font-size: 1.25em;
+    font-size: 2vw;
     color: black;
     cursor: pointer;
-}
-
-#content month-link {
-    text-decoration: none;
-    font-size: 1.25em;
-    color: black;
 }
 
 #content > * {
@@ -230,14 +219,12 @@ year-link {
 
 /* calendar wrapper */
 #left-bar {
-    padding: 0 4% 4%;
-    /* codefactor calls these "shorthand-property-no-redundant-values" */
-    margin-left: 2vw;
+    padding-bottom: 4%; /* codefactor calls these "shorthand-property-no-redundant-values" */
+    margin-left: 0vw;
     margin-right: 2vw;
     width: 30vw;
-    height: 55vh;
-    align-content: center;
-    flex-grow: 3;
+    height: 27vw;
+    flex-grow: 4;
 }
 
 #left-bar h1 {
@@ -250,8 +237,8 @@ ul {
 }
 
 #calendar {
-    height: 20vw;
-    padding: 2vw 5vw 10vw;
+    height: 23vw;
+    padding: 0vw 5vw 10vw;
 }
 
 /* Month header */
@@ -322,7 +309,7 @@ ul {
 .blank_day,
 .blank_day:hover {
     background: none;
-    cursor: default;
+    cursor: auto;
 }
 
 /* 
@@ -347,11 +334,33 @@ ul {
     flex-direction: row;
 }
 
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 5px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
 #themes {
     right: 3vw;
     top: 1vw;
     border-radius: 0.8vw;
-    font-size: 1vw;
-    padding: 0.3vh;
+    font-size: 1.2vw;
+    padding: 0.15vw;
     cursor: pointer;
+    flex-grow: 4;
 }

@@ -10,7 +10,6 @@ body {
     background-color: var(--bg-color);
     display: grid;
     justify-items: stretch;
-    grid-template-columns: 30% 10% 17%;
 
     grid-template-areas:
         'title title title title title title'
@@ -21,12 +20,12 @@ body {
 }
 
 h2 {
-    font-size: 3.5vh;
-    margin: 1vh;
+    font-size: 2vw;
+    margin: 0.5vw;
 }
 
 h3 {
-    font-size: 2.3vh;
+    font-size: 1.3vw;
 }
 
 /* Header Block */
@@ -34,16 +33,16 @@ h3 {
 header {
     grid-area: title;
     display: grid;
-    height: 9vh;
-    margin: 2vh;
-
+    height: 4.5vw;
+    margin: 1vw;
     justify-items: stretch;
     grid-template-areas: 'back one two date three four headerHome';
 }
 
 #monthView {
+    padding-top: 1vw;
     grid-area: back;
-    font-size: 3.5vh;
+    font-size: 1.5vw;
 }
 
 #words {
@@ -62,38 +61,39 @@ h1 > a:first-child:hover {
     display: block;
     grid-area: date;
     justify-self: center;
-    font-size: 5vh;
-    margin: 2.5vh;
+    font-size: 2.5vw;
+    margin: 1.3vw;
+    color: black;
 }
 
 #logo1 {
     grid-area: one;
-    margin: 1vh;
-    height: 10vh;
+    margin: 0.5vw;
+    height: 5vw;
 }
 
 #logo2 {
     grid-area: two;
-    margin: 1vh;
-    height: 10vh;
+    margin: 0.5vw;
+    height: 5vw;
 }
 
 #logo3 {
     grid-area: three;
-    margin: 1vh;
-    height: 10vh;
+    margin: 0.5vw;
+    height: 5vw;
 }
 
 #logo4 {
     grid-area: four;
-    margin: 1vh;
-    height: 10vh;
+    margin: 0.5vw;
+    height: 5vw;
 }
 
 #home {
     grid-area: headerHome;
-    margin: 2vh;
-    height: 8vh;
+    height: 3.5vw;
+    margin: 1vw;
 }
 
 #homeContainer {
@@ -111,21 +111,28 @@ h1 > a:first-child:hover {
     grid-area: todo;
     background-color: white;
     margin: 1vw;
-    padding: 1vw 3vw 1vw 2vw;
+    padding: 1vw 2vw;
     border-radius: 2vw;
     border-style: solid;
     border-width: 1mm;
     border-color: black;
-    height: 75vh;
-    width: 80%;
-    overflow: auto;
-    min-height: 35vw;
+    height: 42vw;
+    width: 30vw;
 }
 
 #addTodo {
     background-color: transparent;
     border: none;
     font-size: 3vh;
+}
+
+#bullets {
+    margin: 0;
+    height: 36vw;
+    min-width: 10vw;
+    overflow-y: auto;
+    overflow-wrap: break-word;
+    overflow: -moz-scrollbars-vertical;
 }
 
 /* Note Block */
@@ -139,26 +146,12 @@ h1 > a:first-child:hover {
     border-style: solid;
     border-width: 1mm;
     border-color: black;
-    height: 75vh;
-    position: relative;
-
-    min-height: 35vw;
-}
-
-#notesDino {
-    height: 13vh;
-    width: 10vw;
-    position: relative;
-    bottom: 18.5vh;
-    left: 34vw;
-}
-
-#bullets {
-    padding-left: 1vw;
-    max-width: 50vw;
-    max-height: 30vw;
+    height: 42vw;
+    width: 28vw;
     overflow-y: auto;
+    overflow-wrap: break-word;
 }
+
 ::-webkit-scrollbar {
     width: 10px;
 }
@@ -185,7 +178,7 @@ h1 > a:first-child:hover {
 #goalReminder {
     grid-area: goal;
     background-color: white;
-    margin: 0.7vw;
+    margin: 1vw 1vw 0vw;
     padding: 0.5vw;
     border-radius: 2vw;
     border-style: solid;
@@ -196,15 +189,33 @@ h1 > a:first-child:hover {
     grid-template-rows: [title] 15% [month] 40% [year] 40%;
 }
 
-#goalReminder + h1 {
+#goalReminder + h2 {
     grid-row-start: title;
+}
+
+#monthSection,
+#yearSection {
+    padding-left: 0.5vw;
+}
+
+#monthTitle {
+    margin-top: 0.3vw;
+    margin-bottom: 0.5vw;
+    text-decoration: underline;
+}
+
+#yearTitle {
+    margin-top: 0.6vw;
+    margin-bottom: 0.5vw;
+    text-decoration: underline;
 }
 
 #monthGoal {
     grid-row-start: month;
-    height: 8.5vh;
-    max-height: 10vh;
-    overflow: auto;
+    height: 5vw;
+    max-height: 5vw;
+    overflow-y: auto;
+    overflow-wrap: break-word;
 }
 
 #monthGoal > h2 {
@@ -216,9 +227,10 @@ h1 > a:first-child:hover {
 
 #yearGoal {
     grid-row-start: year;
-    height: 8.5vh;
-    max-height: 10vh;
-    overflow: auto;
+    height: 4vw;
+    max-height: 5vw;
+    overflow-y: auto;
+    overflow-wrap: break-word;
 }
 
 #yearGoal > h2 {
@@ -233,7 +245,7 @@ h1 > a:first-child:hover {
 #photo-album {
     grid-area: album;
     background-color: white;
-    margin: 0.5vw;
+    margin: 0.7vw;
     padding: 0.8vw;
     border-radius: 2vw;
     border-style: solid;
@@ -241,27 +253,20 @@ h1 > a:first-child:hover {
     border-color: black;
 }
 /* added border and made it very visible and when the cursor is on it, the cursor turns to a pointer */
-#addPhoto {
+#addPhoto,
+#deletePhoto {
     background-color: transparent;
     border: 3px solid black;
     border-radius: 5px;
-    font-size: 2vh;
+    font-size: 1vw;
     margin-bottom: 10px;
     color: #565252;
     cursor: pointer;
 }
 
-#deletePhoto {
-    background-color: transparent;
-    border: 3px solid black;
-    border-radius: 5px;
-    font-size: 2vh;
-    margin-bottom: 10px;
-    color: #565252;
-    cursor: pointer;
-}
 /* when user hovers their cursor over the button, it fills in with grey */
-#addPhoto:hover {
+#addPhoto:hover,
+#deletePhoto:hover {
     background-color: lightgray;
 }
 
@@ -278,7 +283,6 @@ button#cancel {
     border: 3px solid black;
     border-radius: 5px;
     color: #565252;
-    left: 20%;
     cursor: pointer;
 }
 
@@ -292,29 +296,36 @@ button#left,
 button#right {
     background-color: transparent;
     border: none;
-    font-size: 2vh;
+    font-size: 1vw;
     cursor: pointer;
 }
 
 /* Misc */
+
+#entry,
+#entry-button {
+    color: black;
+}
+
 .entry-form {
-    height: 3vh;
-    padding: 0.7vh;
+    height: 1.5vw;
+    padding: 0.35vw;
 }
 
 .entry-form-text {
     height: 80%;
-    width: 50%;
-    font-size: 1.5vh;
+    width: 15vw;
+    font-size: 1.1vw;
 }
 
 .entry-form-button {
-    height: 100%;
-    width: 6vh;
-    font-size: 1.5vh;
+    height: 1.7vw;
+    width: 3.5vw;
+    min-width: 3vw;
+    font-size: 1vw;
     background-color: var(--bg-color);
     border: none;
-    border-radius: 0.5vh;
+    border-radius: 0.25vw;
     cursor: pointer;
 }
 
