@@ -164,7 +164,6 @@ class BulletEntry extends HTMLElement {
 
         // add child bullet
         this.shadowRoot.querySelector('#add').addEventListener('click', () => {
-            console.log('adding a new bullet');
             let newEntry = prompt('Add Bullet', '');
             let newChild = document.createElement('bullet-entry');
             let newJson = JSON.parse(this.getAttribute('bulletJson'));
@@ -278,7 +277,6 @@ class BulletEntry extends HTMLElement {
             this.shadowRoot.querySelector(
                 '.bullet-content'
             ).style.textDecoration = 'line-through';
-            console.log('testing');
         }
 
         this.shadowRoot
@@ -328,8 +326,6 @@ class BulletEntry extends HTMLElement {
     }
 
     set index(index) {
-        console.log('entry index: ' + index);
-        console.log('entry index length: ' + index.length);
         if (index.length > 2) {
             this.shadowRoot.querySelector('#add').remove();
         }

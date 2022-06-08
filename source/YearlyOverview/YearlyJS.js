@@ -88,7 +88,6 @@ document.querySelector('.entry-form').addEventListener('submit', (submit) => {
         text: gText,
         done: false,
     });
-    console.log(currentYearRes);
     document.querySelector('#bullets').innerHTML = '';
     renderGoals(currentYearRes.goals);
     updateYearsGoals(currentYearRes);

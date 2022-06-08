@@ -62,7 +62,6 @@ function getLoginState() {
         // eslint-disable-next-line no-undef
         let req = getSettings();
         req.onsuccess = function (e) {
-            console.log(e.target.result);
             settingObj = e.target.result;
             if (settingObj === undefined) {
                 loginState = 'new';
