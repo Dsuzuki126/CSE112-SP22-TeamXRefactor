@@ -111,19 +111,28 @@ h1 > a:first-child:hover {
     grid-area: todo;
     background-color: white;
     margin: 1vw;
-    padding: 1vw 3vw 1vw 2vw;
+    padding: 1vw 2vw;
     border-radius: 2vw;
     border-style: solid;
     border-width: 1mm;
     border-color: black;
     height: 42vw;
-    width: 80%;
-    overflow: auto;
+    width: 30vw;
 }
 
-/* this will hide the scrollbar in webkit based browsers - safari, chrome, etc */
-::-webkit-scrollbar {
-    display: none;
+#addTodo {
+    background-color: transparent;
+    border: none;
+    font-size: 3vh;
+}
+
+#bullets {
+    margin: 0;
+    height: 36vw;
+    min-width: 10vw;
+    overflow-y: auto;
+    overflow-wrap: break-word;
+    overflow: -moz-scrollbars-vertical;
 }
 
 /* Note Block */
@@ -138,15 +147,30 @@ h1 > a:first-child:hover {
     border-width: 1mm;
     border-color: black;
     height: 42vw;
-    position: relative;
+    width: 28vw;
+    overflow-y: auto;
+    overflow-wrap: break-word;
 }
 
-#notesDino {
-    height: 8vw;
-    width: 12vw;
-    position: relative;
-    bottom: 8vw;
-    left: 30vw;
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 5px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
 }
 
 /* Goal Reminder Block */
@@ -190,7 +214,8 @@ h1 > a:first-child:hover {
     grid-row-start: month;
     height: 5vw;
     max-height: 5vw;
-    overflow: auto;
+    overflow-y: auto;
+    overflow-wrap: break-word;
 }
 
 #monthGoal > h2 {
@@ -204,7 +229,8 @@ h1 > a:first-child:hover {
     grid-row-start: year;
     height: 4vw;
     max-height: 5vw;
-    overflow: auto;
+    overflow-y: auto;
+    overflow-wrap: break-word;
 }
 
 #yearGoal > h2 {

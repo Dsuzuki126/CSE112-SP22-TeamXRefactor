@@ -97,9 +97,34 @@ body {
     height: 26vw;
     max-height: 50vw;
     width: 70%;
-    overflow: auto;
 }
 
+#bullets {
+    padding-left: 1vw;
+    max-width: 50vw;
+    max-height: 30vw;
+    overflow-y: auto;
+}
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 5px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
 .entry-form {
     height: 1.5vw;
     padding: 0.35vw;
@@ -152,17 +177,11 @@ body {
 
 #months {
     padding: 0vw 1vw;
-    height: 35vw;
-    overflow: auto;
-    overflow: -moz-scrollbars-none;
-    /* this will hide the scrollbar in internet explorers */
-    -ms-overflow-style: none;
+    height: 31.5vw;
+    overflow-y: auto;
+    overflow: -moz-scrollbars-vertical;
 }
 
-/* this will hide the scrollbar in webkit based browsers - safari, chrome, etc */
-::-webkit-scrollbar {
-    display: none;
-}
 /* have to do first child since the anchor tag is the parent and the h2 tag is the child */
 #January :first-child,
 #February :first-child,

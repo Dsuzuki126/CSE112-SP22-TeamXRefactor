@@ -90,6 +90,37 @@ body {
     width: 70%;
 }
 
+#bullets {
+    padding-left: 1vw;
+    height: 90%;
+    max-width: 50vw;
+    max-height: 30vw;
+    overflow-y: auto;
+    overflow-wrap: break-word;
+    overflow: -moz-scrollbars-vertical;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 5px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
 /* add goal form styling */
 .entry-form {
     height: 1.5vw;
@@ -122,15 +153,6 @@ body {
     height: 26vw;
 }
 
-#bullets {
-    height: 90%;
-    overflow: auto;
-}
-
-#bullets::-webkit-scrollbar {
-    display: none; /* color of the tracking area */
-}
-
 /** 
 * Calendar styling
 */
@@ -157,6 +179,7 @@ ul {
 
 /* Month header */
 .month_header {
+    display: flex;
     padding: 2vw 25px;
     background: #585858;
     text-align: center;
@@ -165,12 +188,28 @@ ul {
 
 /* Month header's text */
 .month_label {
-    background-color: #585858;
+    display: flex;
     color: white;
+    background-color: #585858;
     font-size: 2.5vw;
     text-transform: uppercase;
     letter-spacing: 0.7vw;
     margin: auto;
+}
+.month_arrow {
+    display: flex;
+    color: white;
+    background-color: #585858;
+    font-size: 2.5vw;
+    text-transform: uppercase;
+    letter-spacing: 0.7vw;
+    margin: auto;
+    padding-top: 0%;
+    padding-bottom: 0%;
+}
+.month_arrow:hover {
+    cursor: pointer;
+    text-decoration: underline;
 }
 
 /* Weekdays (Sun-Sat) */
