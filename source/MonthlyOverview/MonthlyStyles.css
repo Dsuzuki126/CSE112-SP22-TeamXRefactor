@@ -82,14 +82,40 @@ body {
     border-radius: 2vw;
     border-style: solid;
     border-width: 1mm;
-
     margin: 1vw;
     padding: 2vw;
     height: 60vh;
     max-height: 50vw;
     width: 70%;
+}
 
-    overflow: auto;
+#bullets {
+    padding-left: 1vw;
+    max-width: 50vw;
+    max-height: 30vw;
+    overflow-y: scroll;
+    overflow: -moz-scrollbars-vertical;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 5px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
 }
 
 /* add goal form styling */
@@ -118,10 +144,6 @@ body {
 #entry,
 #entry-button {
     color: black;
-}
-
-#goals::-webkit-scrollbar {
-    display: none; /* color of the tracking area */
 }
 
 /** 
