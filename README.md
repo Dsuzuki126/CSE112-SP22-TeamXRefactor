@@ -2,9 +2,6 @@
 
 [Bullet Journal](https://cse112-sp22-teamxrefactor.github.io/CSE112-SP22-TeamXRefactor/source/Login/Login.html)
 
-
-[Team Page](admin/team.md)
-
 ### Documentation Site
 our jsDocs are hosted [here](https://cse112-sp22-teamxrefactor.github.io/jsDocs/)
 
