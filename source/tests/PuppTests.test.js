@@ -91,7 +91,7 @@ describe('basic navigation for BJ', () => {
         // });
 
         await page.click('#login-button', { clickCount: 1 });
-        msg = await page.$eval('#error', (Userblank) => {
+        msg = await page.$eval('#errorU', (Userblank) => {
             return Userblank.innerHTML;
         });
         expect(msg).toBe('Please provide a username');
@@ -107,7 +107,7 @@ describe('basic navigation for BJ', () => {
         });
         let msg = null;
         await page.click('#login-button', { clickCount: 1 });
-        msg = await page.$eval('#error', (UserShort) => {
+        msg = await page.$eval('#errorU', (UserShort) => {
             return UserShort.innerHTML;
         });
         expect(msg).toBe('Username must be at least 2 characters long');
@@ -123,7 +123,7 @@ describe('basic navigation for BJ', () => {
         });
         let msg = null;
         await page.click('#login-button', { clickCount: 1 });
-        msg = await page.$eval('#error', (UserNoS) => {
+        msg = await page.$eval('#errorU', (UserNoS) => {
             return UserNoS.innerHTML;
         });
         expect(msg).toBe('Username must not contain special characters');
@@ -139,30 +139,31 @@ describe('basic navigation for BJ', () => {
         });
         let msg = null;
         await page.click('#login-button', { clickCount: 1 });
-        msg = await page.$eval('#error', (pinShort) => {
+        msg = await page.$eval('#errorP', (pinShort) => {
             return pinShort.innerHTML;
         });
         expect(msg).toBe('PIN must be at least 4 digits long');
     });
 
-    // it('LoginTest5: try to create account with bad pin (invalid characters)', async () => {
-    //     await page.$eval('#username', (usernameInput) => {
-    //         usernameInput.value = 'SampleUsername';
-    //     });
+    it('LoginTest5: try to create account with bad pin (invalid characters)', async () => {
+        await page.$eval('#username', (usernameInput) => {
+            usernameInput.value = 'SampleUsername';
+        });
 
-    //     await page.$eval('#pin', (passwordInput) => {
-    //         passwordInput.value = '1234abc';
-    //     });
+        await page.$eval('#pin', (passwordInput) => {
+            passwordInput.value = '1234abc';
+        });
 
-    //     let msg = null;
-    //     page.on('dialog', async (dialog) => {
-    //         await page.waitForTimeout(1000);
-    //         // await dialog.dismiss();
-    //         msg = dialog.message();
-    //     });
-    //     await page.click('#login-button', { clickCount: 1 });
-    //     expect(msg).toMatch('PIN must contain numbers only');
-    // });
+        let msg = null;
+
+
+
+        await page.click('#login-button', { clickCount: 1 });
+        msg = await page.$eval('#errorP', (pinNS) => {
+            return pinNS.innerHTML;
+        });
+        expect(msg).toBe('PIN must contain numbers only');
+    });
 
     it('Test2: create an account and login - shows index page ', async () => {
         jest.setTimeout(30000);
@@ -216,7 +217,7 @@ describe('basic navigation for BJ', () => {
         // expect(msg).toMatch('Incorrect password!');
 
         await page.click('#login-button', { clickCount: 1 });
-        msg = await page.$eval('#error', (incorrect) => {
+        msg = await page.$eval('#errorP', (incorrect) => {
             return incorrect.innerHTML;
         });
         expect(msg).toBe('Incorrect password!');
@@ -254,22 +255,11 @@ describe('basic navigation for BJ', () => {
         });
 
         await page.click('#login-button', { clickCount: 2 });
-        msg = await page.$eval('#errM', (incorrectA) => {
+        msg = await page.$eval('#errorP', (incorrectA) => {
             return incorrectA.innerHTML;
         });
         expect(msg).toBe('Incorrect password!');
 
-        //
-        // page.on('dialog', async (dialog) => {
-        //     await page.waitForTimeout(1000);
-        //     msg = dialog.message();
-        //     // await dialog.dismiss()
-        // });
-
-        // await page.$eval('#login-button', (button) => {
-        //     button.click();
-        // });
-        // expect(msg).toMatch('Incorrect password!');
     });
 
     it('Test6: go to index screen, make sure highlighted day is the current day', async () => {
