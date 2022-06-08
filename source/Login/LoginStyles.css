@@ -1,104 +1,132 @@
 * {
-    font-family: 'Courier', monospace;
-    font-weight: bold;
+    /*font-family: 'Courier', monospace*/
     color: #585858;
     font-size: larger;
+    font-family: 'Times New Roman';
+}
+
+#big-logo {
+    align-items: center;
+    position: relative;
+    margin: auto;
+
+    width: 70px;
+    height: 50px;
+    transform: translate(80%, -70px);
 }
 
 body {
-    background-color: #d4ffd4;
+    background-color: #f2f8f2;
 }
 
 #dino-align {
-    margin-top: 10vw;
+    margin: auto;
+
+    align-items: center;
+    position: absolute;
+    margin-top: 5%;
+
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: stretch;
+    margin-left: 22.5%;
+    margin-right: 25%;
+    width: 50%;
+}
+
+#dino-align > h3 {
+    align-items: center;
+
+    flex-grow: 1;
+    font-size: 2.5vw;
+    margin-top: 1px;
+    margin-left: 15%;
+    height: 20%;
+    position: absolute;
+}
+
+.errorshow {
+    margin-left: 5%;
+
+    align-items: left;
+
+    flex-direction: column;
+    font-size: 15px;
+    color: rgb(175, 73, 73);
+    display: 'none';
+    transform: translate(0, -10px);
 }
 
 #content {
+    position: relative;
+    margin-top: 5%;
     margin-left: 7.5vw;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    width: 40vw;
-    height: 50vh;
-    background-color: white;
+    width: 40vh;
+    height: 30vh;
+    background-color: rgb(238, 242, 247);
     border-style: solid;
-    border-color: #585858;
-    border-width: 0.3vw;
-    border-radius: 1.5vw;
-    position: relative;
+    border-color: #c7ceb9;
+    border-width: 0.1vw;
+    padding: 50px;
+}
+.PT {
+    font-size: 20px;
 }
 
 #content > * {
     box-shadow: 0;
 }
 
-#content > h3 {
-    flex-grow: 1;
-    font-size: 3.5vw;
-    margin: 1% 1vw 0.5%;
-    height: 25%;
-}
-
-#big-logo {
-    width: 30vw;
-    margin-left: 7.5vw;
-}
-.error {
-    margin-left: 15%;
-
-    align-items: left;
-
-    flex-direction: column;
-    font-size: 20px;
-    color: rgb(175, 73, 73);
-    display: 'none';
-    transform: translate(30, -3000);
+.UP {
+    margin-top: 2.5%;
+    background-color: #889bcf;
+    font-weight: normal;
+    color: rgb(214, 184, 184);
+    border-radius: 0.5vw;
+    font-size: 2.5vh;
+    height: 100%;
+    width: 30%;
 }
 #login-button {
-    background-color: #1e942d;
-    color: black;
-    border-radius: 0.5vw;
-    flex-grow: 1;
-    font-size: 4vh;
-    margin: 2% 5vw;
-    height: 15%;
-    width: 70%;
-    cursor: pointer;
-    text-decoration: none;
+    margin-left: 18%;
+    float: left;
 }
 #login-button:hover {
     text-decoration: underline;
 }
-
 #reset-password-button {
-    background-color: #1e942d;
-    color: black;
-    border-radius: 0.5vw;
-    flex-grow: 1;
-    font-size: 4vh;
-    margin: 3% 5vw;
-    height: 15%;
-    width: 70%;
-    cursor: pointer;
-    text-decoration: none;
+    margin-right: 18%;
+    float: right;
 }
+
 #reset-password-button:hover {
     text-decoration: underline;
-    color: black;
+}
+
+input:invalid {
+    border-color: 5px solid red;
 }
 
 input {
     background-color: white;
-    border-radius: 0.5vw;
-    flex-grow: 1;
-    font-size: 3vw;
-    margin: 4% 5vw;
+    font-size: 1.5vw;
+    margin: 2%;
     height: 15%;
-    width: 70%;
+    width: 100%;
+    padding: 1px;
+    border: 1px solid rgb(235, 218, 218);
+    border-radius: 20px;
+    box-sizing: border-box;
+    margin-top: 16px;
+    margin-bottom: 20px;
 }
+
+/*input::placeholder {
+    color: transparent;
+}*/
 
 #switch-screen {
     font-size: medium;
@@ -107,4 +135,60 @@ input {
     width: parent;
     background: none;
     border: none;
+}
+.clicking::-webkit-input-placeholder {
+    color: transparent;
+}
+.container {
+    background-color: #f1f1f1;
+    padding: 30px;
+}
+
+#message {
+    display: none;
+    align-items: center;
+    position: relative;
+    text-align: left;
+    width: 47vh;
+    height: 30%;
+    margin-left: 7.5vw;
+    background: #ece4ce;
+    color: rgb(78, 74, 74);
+    padding: 3%;
+    margin-top: 1%;
+    font-size: 20px;
+    border: 5%;
+}
+
+#message p {
+    padding-left: 30px;
+    padding-bottom: 10px;
+    font-size: 20px;
+}
+
+/* Add a green text color and a checkmark when the requirements are right */
+.valid {
+    color: green;
+}
+
+.valid:before {
+    position: relative;
+    left: -35px;
+    content: '✔';
+}
+
+/* Add a red text color and an "x" when the requirements are wrong */
+.invalid {
+    color: rgb(212, 129, 108);
+}
+
+.invalid:before {
+    position: relative;
+    left: -35px;
+    content: '✖';
+}
+.clickable {
+    float: right;
+    width: 30px;
+    height: 30px;
 }
