@@ -7,13 +7,16 @@
     --bg-color: white;
     --clr-bg-hover: hsla(0, 0%, 0%, 0.1);
 }
+
 * {
     font-family: 'Courier', monospace;
     font-weight: bold;
 }
+
 body {
     background-color: var(--bg-color);
 }
+
 /* Body's only child */
 #body-wrapper {
     display: flex;
@@ -45,7 +48,7 @@ Structure
 
 #right-bar {
     margin-right: 8vw;
-    height: 65vh;
+    height: 33vw;
     width: 15vw;
     flex-grow: 4;
 }
@@ -77,6 +80,17 @@ Structure
     margin: 1rem auto;
 }
 
+year-wrapper {
+    width: max-content;
+    margin-inline: auto;
+    display: block;
+}
+
+year-nav {
+    width: max-content;
+    margin-inline: auto;
+}
+
 #content::-webkit-scrollbar {
     display: none;
 }
@@ -98,18 +112,27 @@ Structure
     padding-left: 2rem;
 }
 
-.collapsible_child > a {
+.collapsible_child * {
     width: max-content;
-    padding: 0.5em;
+    padding: 0.5vw;
     border-radius: 0.5em;
-    font-size: 1.4vw;
-}
-.collapsible_child > a:hover {
-    background-color: var(--clr-bg-hover);
 }
 
 .monthlink {
-    display: inline-block;
+    text-decoration: none;
+    color: black;
+    width: max-content;
+    padding: 0.5vw;
+    border-radius: 0.5em;
+    font-size: 1.3vw;
+}
+
+.monthlink:hover {
+    background-color: var(--clr-bg-hover);
+}
+
+.collapsible_child *:hover {
+    background-color: var(--clr-bg-hover);
 }
 
 #today-button {
@@ -123,8 +146,10 @@ Structure
     display: block;
     width: 70%;
 }
+
 #today-button:hover {
     text-decoration: underline;
+    text-decoration-thickness: 3px;
 }
 
 button {
@@ -148,6 +173,7 @@ button:hover {
     margin-right: 1rem;
     background-color: transparent;
 }
+
 .coll_yr_button:hover {
     background-color: var(--bg-color);
 }
@@ -157,9 +183,11 @@ button:hover {
     position: relative;
     bottom: 1px;
     width: 100%;
+    height: 100%;
     transform: rotate(-90deg) scale(1.2);
     transition: transform 0.2s ease-in-out;
 }
+
 .coll_yr_button.active img {
     transform: rotate(0) scale(1.2);
 }
@@ -173,6 +201,14 @@ button:hover {
 #content a {
     text-decoration: none;
     color: black;
+    font-size: 1.6vw;
+}
+
+.year-link {
+    text-decoration: none;
+    font-size: 2vw;
+    color: black;
+    cursor: pointer;
 }
 
 #content > * {
@@ -188,11 +224,10 @@ button:hover {
 /* calendar wrapper */
 #left-bar {
     padding-bottom: 4%; /* codefactor calls these "shorthand-property-no-redundant-values" */
-    margin-left: 2vw;
+    margin-left: 0vw;
     margin-right: 2vw;
     width: 30vw;
-    height: 55vh;
-    align-content: center;
+    height: 27vw;
     flex-grow: 4;
 }
 
@@ -206,20 +241,21 @@ ul {
 }
 
 #calendar {
-    height: 46vh;
+    height: 23vw;
     padding: 0vw 5vw 10vw;
 }
 
 /* Month header */
-.month_header {
+#month_header {
     padding: 2vw 25px;
     background: #585858;
     text-align: center;
     border-radius: 2vw 2vw 0 0;
+    display: block;
 }
 
 /* Month header's text */
-.month_label {
+#month_label {
     background-color: #585858;
     color: white;
     font-size: 2.5vw;
@@ -229,7 +265,7 @@ ul {
 }
 
 /* Weekdays (Sun-Sat) */
-.weekdays_label {
+#weekdays_label {
     margin: 0;
     padding: 0.8vw 0 0;
     background-color: #eee;
@@ -246,7 +282,7 @@ ul {
 }
 
 /* Days (1-31) */
-.days_field {
+#days_field {
     padding: 0 0.5vw 0.5vw;
     background: #eee;
     margin: 0;
@@ -289,6 +325,10 @@ ul {
     background: var(--bg-color);
 }
 
+.today:hover {
+    text-decoration: underline;
+}
+
 .today {
     font-weight: bold;
 }
@@ -299,11 +339,11 @@ ul {
 }
 
 #themes {
-    position: relative;
-    left: 2vw;
+    right: 3vw;
+    top: 1vw;
     border-radius: 0.8vw;
     font-size: 1.2vw;
-    padding: 0.3vh;
+    padding: 0.15vw;
     cursor: pointer;
     flex-grow: 4;
 }
