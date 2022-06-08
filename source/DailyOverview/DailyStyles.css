@@ -119,12 +119,7 @@ h1 > a:first-child:hover {
     height: 75vh;
     width: 80%;
     overflow: auto;
-
     min-height: 35vw;
-}
-
-#todo::-webkit-scrollbar {
-    display: none; /* color of the tracking area */
 }
 
 #addTodo {
@@ -156,6 +151,33 @@ h1 > a:first-child:hover {
     position: relative;
     bottom: 18.5vh;
     left: 34vw;
+}
+
+#bullets {
+    padding-left: 1vw;
+    max-width: 50vw;
+    max-height: 30vw;
+    overflow-y: auto;
+}
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 5px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
 }
 
 /* Goal Reminder Block */
