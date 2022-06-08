@@ -34,12 +34,12 @@ var errP = document.getElementById('errorP');
 //make the login button redirect to Index
 let loginButton = document.getElementById('login-button');
 loginButton.addEventListener('click', () => {
-    console.log((loginState == 'new'));
+    console.log(loginState == 'new');
     if (loginState == 'new') {
-    message.style.display = 'block';
-    validFormat();
+        message.style.display = 'block';
+        validFormat();
     }
-    
+
     handleLoginButton();
 });
 // window.addEventListener("keydown", (e) => {
@@ -180,22 +180,22 @@ function handleResetPassword() {
     resetPasswordButton.innerHTML = 'Comfirm';
     resetPasswordButton.addEventListener('click', () => {
         //loginButton.removeEventListener('click', handleLoginButton);
-    
-            // update settings
-            if (verifyValidInputs(settingObj.username, passwordField.value)) {
-                let userObject = {
-                    username: settingObj.username,
-                    password: passwordField.value,
-                    theme: '#d4ffd4',
-                };
-                // eslint-disable-next-line no-undef
-                updateSettings(userObject);
-                settingObj.password = passwordField.value;
 
-                // log the user in
-                sessionStorage.setItem('loggedIn', 'true');
-                goHome();
-            }
+        // update settings
+        if (verifyValidInputs(settingObj.username, passwordField.value)) {
+            let userObject = {
+                username: settingObj.username,
+                password: passwordField.value,
+                theme: '#d4ffd4',
+            };
+            // eslint-disable-next-line no-undef
+            updateSettings(userObject);
+            settingObj.password = passwordField.value;
+
+            // log the user in
+            sessionStorage.setItem('loggedIn', 'true');
+            goHome();
+        }
     });
 }
 
@@ -211,8 +211,8 @@ function verifyValidInputs(newUsername, newPassword) {
     //prohibit empty username
     if (newUsername.length == 0) {
         errU.textContent = 'Please provide a username';
-        //passwordField.style.border = "1px solid Red";  
-        usernameField.style.border = "1px solid Red";  
+        //passwordField.style.border = "1px solid Red";
+        usernameField.style.border = '1px solid Red';
         errU.style.display = 'block';
         return false;
     }
@@ -220,26 +220,25 @@ function verifyValidInputs(newUsername, newPassword) {
     else if (newUsername.length < MIN_NAME_LENGTH) {
         errU.textContent = 'Username must be at least 2 characters long';
         errU.style.display = 'block';
-        usernameField.style.border = "1px solid Red";  
+        usernameField.style.border = '1px solid Red';
         return false;
     }
     //prohibit invalid characters in username
     else if (name_regex.test(newUsername)) {
         errU.textContent = 'Username must not contain special characters';
         errU.style.display = 'block';
-        usernameField.style.border = "1px solid Red";  
+        usernameField.style.border = '1px solid Red';
 
         return false;
     }
-    
 
     //prohibit short passwords
     else if (newPassword.length < MIN_PIN_LENGTH) {
         errU.style.display = 'none';
         errP.textContent = 'PIN must be at least 4 digits long';
         errP.style.display = 'block';
-        usernameField.style.border = ''
-        passwordField.style.border = "1px solid Red";  
+        usernameField.style.border = '';
+        passwordField.style.border = '1px solid Red';
         return false;
     }
     //prohibit non-numeric PIN
@@ -247,8 +246,8 @@ function verifyValidInputs(newUsername, newPassword) {
         errU.style.display = 'none';
         errP.textContent = 'PIN must contain numbers only';
         errP.style.display = 'block';
-        usernameField.style.border = ''
-        passwordField.style.border = "1px solid Red";  
+        usernameField.style.border = '';
+        passwordField.style.border = '1px solid Red';
         return false;
     }
 
@@ -273,7 +272,6 @@ function validFormat() {
     //     document.getElementById('message').style.display = 'none';
     // };
 
-    
     // When the user starts to type something inside the password field
     passwordField.onkeyup = function () {
         if (passwordField.value.length >= 4) {
@@ -283,19 +281,19 @@ function validFormat() {
             length.classList.remove('valid');
             length.classList.add('invalid');
         }
-    
+
         //var numbers = /[0-9]/g;
-            if (pin_regex.test(passwordField.value)) {
-                number.classList.remove('valid');
-                number.classList.add('invalid');
-                letter.classList.remove('valid');
-                letter.classList.add('invalid');
-            } else {
-                number.classList.remove('invalid');
-                number.classList.add('valid');
-                letter.classList.remove('invalid');
-                letter.classList.add('valid');
-            }
+        if (pin_regex.test(passwordField.value)) {
+            number.classList.remove('valid');
+            number.classList.add('invalid');
+            letter.classList.remove('valid');
+            letter.classList.add('invalid');
+        } else {
+            number.classList.remove('invalid');
+            number.classList.add('valid');
+            letter.classList.remove('invalid');
+            letter.classList.add('valid');
+        }
     };
 }
 
@@ -311,13 +309,13 @@ function handleLogin(password) {
     if (correctPassword === password) {
         //set login flag that user logged in
         // eslint-disable-next-line no-undef
-        //passwordField.style.border = "";  
+        //passwordField.style.border = "";
         sessionStorage.setItem('loggedIn', 'true');
         goHome();
     } else {
         errP.textContent = 'Incorrect password!';
-        passwordField.style.border = "1px solid Red";  
-        errP.style.display = "block";
+        passwordField.style.border = '1px solid Red';
+        errP.style.display = 'block';
     }
 }
 
