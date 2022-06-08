@@ -37,8 +37,8 @@ jobs:
         with:
           # Want to run eslint and pretter_args only in the source dir
           eslint: true
-          eslint_dir: "source/"
+          eslint_dir: "source/linting/"
           prettier: true
-          prettier_dir: "source/"
+          prettier_dir: "source/linting/"
           # try to auto-fix problems
           auto_fix: true
