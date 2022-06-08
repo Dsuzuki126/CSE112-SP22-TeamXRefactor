@@ -34,8 +34,12 @@ var errP = document.getElementById('errorP');
 //make the login button redirect to Index
 let loginButton = document.getElementById('login-button');
 loginButton.addEventListener('click', () => {
+    console.log((loginState == 'new'));
+    if (loginState == 'new') {
     message.style.display = 'block';
     validFormat();
+    }
+    
     handleLoginButton();
 });
 // window.addEventListener("keydown", (e) => {

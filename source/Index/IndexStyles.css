@@ -8,8 +8,8 @@
     --clr-bg-hover: hsla(0, 0%, 0%, 0.1);
 }
 * {
-    font-family: 'Courier', monospace;
-    font-weight: bold;
+    font-family: 'Times New Roman';
+    /*font-weight: bold;*/
 }
 body {
     background-color: var(--bg-color);
@@ -62,7 +62,7 @@ Structure
     border-style: solid;
     border-color: #585858;
     border-width: 0.2vw;
-    border-radius: 3vw;
+    border-radius: 2vw;
     padding: 2vw;
     background-color: #eee;
 }
@@ -217,14 +217,14 @@ ul {
 /* Month header */
 .month_header {
     padding: 2vw 25px;
-    background: #585858;
+    background: #889bcf;
     text-align: center;
     border-radius: 2vw 2vw 0 0;
 }
 
 /* Month header's text */
 .month_label {
-    background-color: #585858;
+    background-color: #889bcf;
     color: white;
     font-size: 2.5vw;
     text-transform: uppercase;
