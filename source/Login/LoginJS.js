@@ -62,7 +62,6 @@ function getLoginState() {
         // eslint-disable-next-line no-undef
         let req = getSettings();
         req.onsuccess = function (e) {
-            //console.log('got settings');
             console.log(e.target.result);
             settingObj = e.target.result;
             if (settingObj === undefined) {
@@ -117,6 +116,9 @@ function handleSignup(newUsername, newPassword) {
  */
 function handleResetPassword() {
     resetPasswordButton.innerHTML = 'Confirm';
+    // reset invalid state
+    document.getElementById('errP').innerHTML = '&zwnj;';
+    passwordField.style.border = '';
     resetPasswordButton.addEventListener('click', () => {
         // update settings
         if (verifyValidInputs(settingObj.username, passwordField.value)) {
@@ -143,49 +145,49 @@ function handleResetPassword() {
  * @param {String} newPassword password to check
  */
 function verifyValidInputs(newUsername, newPassword) {
-    var error = document.getElementById('errM');
+    var error = document.getElementById('errP');
     var errorU = document.getElementById('errU');
+
+    //reset form conditions
+    error.innerHTML = '&zwnj;';
+    errorU.innerHTML = '&zwnj;';
+    usernameField.style.border = '';
+    passwordField.style.border = '';
 
     //prohibit empty username
     if (newUsername.length == 0) {
         errorU.textContent = 'Please provide a username';
-        passwordField.style.border = '1px solid Red';
-        usernameField.style.border = '1px solid Red';
-        errorU.style.display = 'block';
+        usernameField.style.border = '2px solid Red';
+        errorU.style.visibility = 'visible';
         return false;
     }
     //prohibit short names
     else if (newUsername.length < MIN_NAME_LENGTH) {
         errorU.textContent = 'Username must be at least 2 characters long';
-        errorU.style.display = 'block';
-        usernameField.style.border = '1px solid Red';
+        usernameField.style.border = '2px solid Red';
+        errorU.style.visibility = 'visible';
         return false;
     }
     //prohibit invalid characters in username
     else if (name_regex.test(newUsername)) {
         errorU.textContent = 'Username must not contain special characters';
-        errorU.style.display = 'block';
-        usernameField.style.border = '1px solid Red';
-
+        usernameField.style.border = '2px solid Red';
+        errorU.style.visibility = 'visible';
         return false;
     }
 
     //prohibit short passwords
     else if (newPassword.length < MIN_PIN_LENGTH) {
-        errorU.style.display = 'none';
         error.textContent = 'PIN must be at least 4 digits long';
-        error.style.display = 'block';
-        usernameField.style.border = '';
-        passwordField.style.border = '1px solid Red';
+        passwordField.style.border = '2px solid Red';
+        error.style.visibility = 'visible';
         return false;
     }
     //prohibit non-numeric PIN
     else if (pin_regex.test(newPassword)) {
-        errorU.style.display = 'none';
         error.textContent = 'PIN must contain numbers only';
-        error.style.display = 'block';
-        usernameField.style.border = '';
-        passwordField.style.border = '1px solid Red';
+        passwordField.style.border = '2px solid Red';
+        error.style.visibility = 'visible';
         return false;
     }
 
@@ -204,14 +206,14 @@ function verifyValidInputs(newUsername, newPassword) {
  */
 function handleLogin(password) {
     let correctPassword = settingObj.password;
-    var errM = document.getElementById('errM');
+    var errP = document.getElementById('errP');
     if (correctPassword === password) {
         sessionStorage.setItem('loggedIn', 'true');
         goHome();
     } else {
-        errM.textContent = 'Incorrect password!';
-        passwordField.style.border = '1px solid Red';
-        errM.style.display = 'block';
+        errP.textContent = 'Incorrect password!';
+        passwordField.style.border = '2px solid Red';
+        errP.style.visibility = 'visible';
     }
 }
 

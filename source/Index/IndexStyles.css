@@ -68,10 +68,10 @@ Structure
 }
 
 #content {
-    overflow: hidden;
-    overflow-y: scroll;
+    overflow-y: auto;
+    overflow: -moz-scrollbars-vertical;
     width: auto;
-    margin: 1vw 2vw 0vw;
+    margin: 1vw;
     height: 21vw;
 }
 
@@ -89,10 +89,6 @@ year-wrapper {
 year-nav {
     width: max-content;
     margin-inline: auto;
-}
-
-#content::-webkit-scrollbar {
-    display: none;
 }
 
 #content h2 {
@@ -336,6 +332,27 @@ ul {
 #cal-week-wrapper {
     display: flex;
     flex-direction: row;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 5px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
 }
 
 #themes {
