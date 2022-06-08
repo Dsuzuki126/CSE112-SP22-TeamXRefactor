@@ -171,8 +171,9 @@ body {
     font-size: 1.25vw;
     text-decoration: none;
 }
-#months > a :hover {
+#months > a:hover {
     text-decoration: underline;
+    text-decoration-thickness: 3px;
 }
 
 #months {

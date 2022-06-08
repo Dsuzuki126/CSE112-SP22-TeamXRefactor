@@ -274,6 +274,10 @@ ul {
     border-radius: 0.5vw;
 }
 
+.today:hover {
+    text-decoration: underline;
+}
+
 .today {
     font-weight: bold;
 }

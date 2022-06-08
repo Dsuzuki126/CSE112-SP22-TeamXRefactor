@@ -253,7 +253,8 @@ h1 > a:first-child:hover {
     border-color: black;
 }
 /* added border and made it very visible and when the cursor is on it, the cursor turns to a pointer */
-#addPhoto {
+#addPhoto,
+#deletePhoto {
     background-color: transparent;
     border: 3px solid black;
     border-radius: 5px;
@@ -263,17 +264,9 @@ h1 > a:first-child:hover {
     cursor: pointer;
 }
 
-#deletePhoto {
-    background-color: transparent;
-    border: 3px solid black;
-    border-radius: 5px;
-    font-size: 2vh;
-    margin-bottom: 10px;
-    color: #565252;
-    cursor: pointer;
-}
 /* when user hovers their cursor over the button, it fills in with grey */
-#addPhoto:hover {
+#addPhoto:hover,
+#deletePhoto:hover {
     background-color: lightgray;
 }
 
@@ -308,6 +301,12 @@ button#right {
 }
 
 /* Misc */
+
+#entry,
+#entry-button {
+    color: black;
+}
+
 .entry-form {
     height: 1.5vw;
     padding: 0.35vw;
