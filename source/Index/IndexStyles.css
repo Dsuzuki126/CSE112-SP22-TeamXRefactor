@@ -9,8 +9,8 @@
 }
 
 * {
-    font-family: 'Courier', monospace;
-    font-weight: bold;
+    font-family: 'Times New Roman';
+    /*font-weight: bold;*/
 }
 
 body {
@@ -28,9 +28,10 @@ body {
     padding-top: 10px;
     padding-bottom: 4vw;
     background-image: url(../Images/Logo.svg);
-    background-repeat: repeat-x;
+    background-repeat: no-repeat;
     background-origin: padding-box;
     background-size: 5vw;
+    margin-left: 48%;
 }
 
 /**
@@ -60,7 +61,7 @@ Structure
 
 #right-bar-inner {
     border-style: solid;
-    border-color: #585858;
+    border-color: #889bcf;
     border-width: 0.2vw;
     border-radius: 3vw;
     padding: 2vw;
