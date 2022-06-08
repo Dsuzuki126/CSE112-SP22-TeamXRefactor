@@ -156,8 +156,6 @@ describe('basic navigation for BJ', () => {
 
         let msg = null;
 
-
-
         await page.click('#login-button', { clickCount: 1 });
         msg = await page.$eval('#errorP', (pinNS) => {
             return pinNS.innerHTML;
@@ -259,7 +257,6 @@ describe('basic navigation for BJ', () => {
             return incorrectA.innerHTML;
         });
         expect(msg).toBe('Incorrect password!');
-
     });
 
     it('Test6: go to index screen, make sure highlighted day is the current day', async () => {
