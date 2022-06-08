@@ -119,6 +119,7 @@ h1 > a:first-child:hover {
     height: 75vh;
     width: 80%;
     overflow: auto;
+
     min-height: 35vw;
 }
 
