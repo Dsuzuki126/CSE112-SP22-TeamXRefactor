@@ -3,6 +3,7 @@
 [Bullet Journal](https://cse112-sp22-teamxrefactor.github.io/CSE112-SP22-TeamXRefactor/source/Login/Login.html)
 
 [For the Grader or Maintainer](https://youtu.be/sFj14Ei1f84)
+[Public Video]( https://youtu.be/MQPBY-3XgLM)
 
 ### Documentation Site
 our jsDocs are hosted [here](https://cse112-sp22-teamxrefactor.github.io/jsDocs/)
