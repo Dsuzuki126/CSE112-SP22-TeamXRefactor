@@ -1,6 +1,6 @@
 # Group 7 - Team X-Refactor
 
-[Bullet Journal](https://cse112-sp22-teamxrefactor.github.io/CSE112-SP22-TeamXRefactor/source/Login/Login.html)
+[Bullet Journal](https://dsuzuki126.github.io/CSE112-SP22-TeamXRefactor/source/Login/Login.html)
 
 [For the Grader or Maintainer](https://youtu.be/sFj14Ei1f84)
 
