@@ -5,9 +5,9 @@
 [For the Grader or Maintainer](https://youtu.be/sFj14Ei1f84)
 
 [Public Video]( https://youtu.be/MQPBY-3XgLM)
-
+<!-- 
 ### Documentation Site
-our jsDocs are hosted [here](https://dsuzuki126.github.io/jsDocs/)
+our jsDocs are hosted [here](https://dsuzuki126.github.io/jsDocs/) -->
 
 ### Description of Project
 
