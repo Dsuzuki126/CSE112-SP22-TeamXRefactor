@@ -35,4 +35,4 @@ jobs:
 
       - name: Run Puppeteer tests
       # can we just do 'npm test source/tests/sampleP.test.js'
-        run: npm test -c jest-puppeteer.config.js source/tests/PuppTests.test.js
+        run: npm test source/tests/PuppTests.test.js
