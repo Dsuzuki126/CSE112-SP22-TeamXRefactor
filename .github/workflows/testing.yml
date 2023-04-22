@@ -35,4 +35,7 @@ jobs:
 
       - name: Run Puppeteer tests
       # can we just do 'npm test source/tests/sampleP.test.js'
-        run: npm test source/tests/PuppTests.test.js
+        run: 
+          sudo yum -y install libXScrnSaver-1.2.2-6.1.el7.x86_64
+          sudo yum install -y chromium
+          npm test -c jest-puppeteer.config.js source/tests/PuppTests.test.js
