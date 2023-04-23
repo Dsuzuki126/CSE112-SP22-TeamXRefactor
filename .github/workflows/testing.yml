@@ -32,7 +32,7 @@ jobs:
 
       - name: Install Node.js dependencies
         run: npm install
-        run: install node
+        run: upgrade node
 
       - name: Run Puppeteer tests
       # can we just do 'npm test source/tests/sampleP.test.js'
