@@ -31,8 +31,9 @@ jobs:
             git pull origin ${{ github.ref }}
 
       - name: Install Node.js dependencies
-        run: npm install
-        run: upgrade node
+        run: 
+            npm install 
+            upgrade node
 
       - name: Run Puppeteer tests
       # can we just do 'npm test source/tests/sampleP.test.js'
