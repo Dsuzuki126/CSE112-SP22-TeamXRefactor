@@ -42,7 +42,7 @@ describe('basic navigation for BJ', () => {
         // This sets up a browser so you can see the tests in action
         browser = await puppeteer.launch({
             headless: false,
-            args: ["--no-sandbox", "disable-setuid-sandbox"],
+            args: ['--no-sandbox', 'disable-setuid-sandbox'],
             // increase slowMo value to make the tests go through the browser more slowly and vice versa
             // if things go too fast you may need to put in gaps using waitForTimeout
             slowMo: 50,
